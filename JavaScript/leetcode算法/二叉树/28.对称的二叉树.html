@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /**
+     * Definition for a binary tree node.
+     * function TreeNode(val) {
+     *     this.val = val;
+     *     this.left = this.right = null;
+     * }
+     */
+    /**
+     * @param {TreeNode} root
+     * @return {boolean}
+     */
+    //深度遍历
+    var isSymmetric1 = function(root) {
+        if (!root) return true
+        function search(left,right) {
+            if(!left && !right){  //左右都为空，则返回true
+                return true
+            }
+            if(!left || !right){   //一方为空，另一方不为空
+                return false
+            }
+            if(left.val !== right.val){   //左右节点值不相等
+                return false
+            }
+
+            return search(left.left,right.right) && search(left.right,right.left)
+            //两个条件同时满足，才返回true
+        }
+        search(root.left,root.right)
+    };
+
+
+</script>
+</html>

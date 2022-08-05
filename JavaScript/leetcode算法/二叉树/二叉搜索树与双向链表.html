@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    var treeToDoublyList = function(root) {
+        if(!root) return ;
+        var head =null
+        var pre = head
+        inOrder(root)
+        head.left = pre;   //首尾相连
+        pre.right = head;
+        return head;
+
+        function inOrder(root,pre) {   //中序遍历，左子树-》根节点 -》 右子树
+           if(!root) return [];
+           inOrder(root.left,pre)
+            if(!pre){    //如果是最左侧节点
+                head = root
+            }
+           else {
+               pre.right = root
+            }
+           root.left = pre
+           pre = root
+           inOrder(root.right)
+
+        }
+
+    };
+</script>
+</html>

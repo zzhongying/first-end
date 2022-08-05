@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+   // //VUE中的观察者模式：
+   // //订阅者
+   // class Sub{
+   //     constructor(val) {
+   //         this.val = val
+   //     }
+   //     update(callback){
+   //         this.val = callback(this.val)   //当前的val等于更新后的val，更新视图
+   //     }
+   // }
+   //
+   // //观察者：watcher
+   //  class Dep{
+   //     //初始化watcher，里面包含订阅者列表和监听的对象方法
+   //     constructor(callback) {
+   //         this.subs =[]
+   //         this.callback = callback
+   //     }
+   //     addSub(sub){          //添加订阅者
+   //         this.subs.push(sub)
+   //     }
+   //     notify(){
+   //         this.subs.forEach((sub)=>{   //通知每个订阅者更新发生变化的对象
+   //             sub.update(this.callback)
+   //         })
+   //     }
+   //  }
+   //
+   // //发布者
+   //  class Pub{
+   //     constructor() {
+   //         this.deps =[];   //观察者数组
+   //     }
+   //
+   //     addDep(dep){      //给某一个事件添加观察者
+   //         this.deps.push(dep)
+   //     }
+   //
+   //     publish(dep){
+   //         // this.deps.forEach((item)=>{       //给观察者数组中的每一个观察者
+   //         //       item === dep && item.notify()    //通知每一个观察者触发事件
+   //         // })
+   //         this.deps.forEach((dep)=>{
+   //             dep.forEach((item)=>{
+   //                 item.notify()
+   //             })
+   //         })
+   //     }
+   //  }
+
+
+// 订阅者
+ class Sub{
+     constructor(val) {
+         this.val = val
+     }
+
+     update(callback){
+         this.val = callback(this.val)
+     }
+ }
+
+//观察者
+class Dep{
+     constructor(callback) {
+         this.subs =[]   // 订阅者列表
+         this.callback = callback
+     }
+
+     add(sub){
+         this.subs.push(sub)
+     }
+     notify(){
+         this.subs.forEach((sub)=>{
+             sub.update(this.callback)
+         })
+     }
+
+}
+
+//发布者
+class Pub{
+     constructor() {
+         this.deps =[]
+     }
+     append(dep){
+         this.deps.push(dep)
+     }
+
+     publish(dep){
+        this.deps.forEach((item)=>{  //通知watcher更新
+            item === dep && item.notify()
+        })
+     }
+}
+
+
+</script>
+</html>

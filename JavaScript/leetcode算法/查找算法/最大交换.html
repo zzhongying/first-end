@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p>test</p>
+</body>
+<script>
+    //给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。
+    var maximumSwap = function(num) {
+        const length = num.toString().length;
+        let max = 0
+        if(length > 8){  //数组最多为10的八次，所以位数不会超过8位，超过返回0
+            return max
+        }
+        if(length === 1){
+            return num
+        }
+
+        for(let i = 0; i < length; i++){
+            for(j = i + 1; j < length; j++){
+                let arr = num.toString().split('')
+                let temp = arr[i]
+                arr[i] = arr[j]
+                arr[j] = temp
+                console.log(arr)
+                max = Math.max(max, Number(arr.join("")))
+            }
+        }
+        return Math.max(num, max)
+    };
+    maximumSwap(27463)
+
+</script>
+<style>
+    p::before{
+        content: 'before';
+    }
+    p::after{
+        content: 'after';
+    }
+</style>
+</html>

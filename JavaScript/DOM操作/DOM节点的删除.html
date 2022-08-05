@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DEMO</title>
+</head>
+<body>
+<div id="container">
+    <h1 id="title">我是标题</h1>
+    <h2 id="title2">我是二级标题</h2>
+</div>
+</body>
+
+<script>
+
+    const container = document.getElementById('container')
+    const targetElement = container.childNodes[1]
+    console.log(targetElement)   //[text, h1#title, text, h2#title2, text]
+    container.removeChild(targetElement)
+
+</script>
+</html>

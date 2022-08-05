@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //this绑定的优先级：new绑定 > 显式绑定 > 隐式绑定 > 默认绑定。
+    function foo(something){
+        this.a = something
+    }
+
+    var obj1 = {}
+
+    var bar = foo.bind(obj1);
+
+    bar(2);
+    console.log(obj1.a);  //2
+
+    var baz = new bar(3);
+    console.log(obj1.a); //2
+    console.log(baz.a);  //3
+
+    //
+</script>
+</html>

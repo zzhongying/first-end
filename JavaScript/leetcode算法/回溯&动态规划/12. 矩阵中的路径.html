@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>12.矩阵中的路径</title>
+</head>
+<body>
+
+</body>
+<script>
+    /**
+     * @param {character[][]} board
+     * @param {string} word
+     * @return {boolean}
+     */
+    var exist = function(board, word) {
+        const row = board.length           //矩阵行数
+        const col = board[0].length        //矩阵列数
+
+        var dfs = (i,j,k) => {              //k：字符串的第几个字符、
+            if( i >= row || j>= col || i<0 || j<0 || word[k] != board[i][j]){          //终止条件
+                return false
+            }
+            // 此时 word[k]必等于board[i][j]，直接判断字符串是否已经遍历完就行
+            if( k === word.length-1 )                     //如果已经判断到字符串的最后一位，表示所有字符串都已经找到
+            {
+                return true
+            }
+            board[i][j] = '#'                      //表示当前格子已经走过
+            const res= dfs(i+1,j,k+1) || dfs(i,j+1,k+1) || dfs(i-1,j,k+1) || dfs(i,j-1,k+1)   // 只要其中一个为真，则返回真
+            board[i][j] = word[k]
+            return res
+        }
+
+        for(let i= 0; i<row; i++){
+            for(let j=0; j<col; j++){
+                if (dfs(i,j,0)){
+                    return true
+                }
+            }
+        }
+        return false
+
+    };
+
+    exist([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]],"ABCCED")
+</script>
+</html>

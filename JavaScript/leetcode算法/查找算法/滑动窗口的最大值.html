@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var maxSlidingWindow = function(nums, k) {
+        if ( nums.length === 0 ) return [];
+        let start = 0
+        let end = start + k
+        let len = nums.length
+        let result =[]
+        while (end <= len){
+            findmx(nums,start,end)
+            start += 1
+            end = start + k
+        }
+        function findmx(arr,s,e) {
+            // console.log(arr.slice(s,e))
+            result.push(Math.max(...arr.slice(s,e)))
+        }
+
+        console.log(result)
+        return result
+    };
+
+    maxSlidingWindow([],0)
+
+    //
+    // var temp =[1,15,3,6,8,7]
+    // console.log(...temp.slice(1,6))
+    // console.log(Math.max(...temp.slice(1,6)))   //扩展运算符的妙用
+</script>
+</html>

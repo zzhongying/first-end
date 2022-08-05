@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二叉树的深度</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    //方法一：层次遍历
+    var maxDepth = function(root) {
+        let count = 0; //当前的层数
+        let list = [root];
+        let result =[]
+        while (list.length){
+            if(!root) return 0
+            let countNum = list.length  //每一行的节点数量
+            while (countNum--){
+                const n = list.shift()
+                if(n.left) list.push(n.left)
+                if(n.right) list.push(n.right)
+            }
+            count ++
+        }
+        return count
+    };
+
+
+    //方法二：深度遍历
+    var maxDepth2 = function (root) {
+        if(!root) return 0
+        //直接返回左子树和右子树中的最大深度+1
+        return Math.max(maxDepth2(root.left), maxDepth2(root.right)) +1
+
+    }
+</script>
+</html>

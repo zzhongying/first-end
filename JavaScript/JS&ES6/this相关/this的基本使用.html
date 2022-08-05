@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //1： 默认绑定规则
+    // console.log(this === window)  //true
+    // console.log( {} === {} )      //false
+    //
+    // //2. 函数的独立调用
+    // function test() {
+    //     console.log(this === window )
+    // }
+    //window。test() == test()
+
+    //2. 隐式绑定规则,谁调用指向谁
+    var name = "全局属性"
+    function fun(){
+        console.log(this)
+    }
+
+    var obj = {
+        name:'aaa',
+        sayname:fun()
+    }
+
+    console.log(obj.sayname === fun)
+    console.log(obj.name)   //aaa
+    console.log(fun.name)   // 全局属性
+
+
+</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise面试题4</title>
+</head>
+<body>
+
+</body>
+<script>
+    // new Promise((resolve, reject) => {
+    //     console.log("外部promise");
+    //     resolve();
+    // }).then(() => {
+    //     console.log("外部第一个then");
+    //     return new Promise((resolve, reject) => {   //外部第一个 then 方法里面 return 一个 Promise，这个 return ，代表 外部的第二个 then 的执行需要等待 return 之后的结果。当然会先执行完内部两个 then 之后，再执行 外部的第二个 then
+    //         console.log("内部promise");
+    //         resolve();
+    //     }).then(() => {
+    //         console.log("内部第一个then");
+    //     }).then(() => {
+    //         console.log("内部第二个then");
+    //     });
+    // }).then(() => {
+    //     console.log("外部第二个then")    //上个then函数有return，所以外部第二个then必须等到上个return执行完成后才能进行
+    // })
+    // 输出顺序：外部promise 外部第一个then 内部promise  内部第一个then 内部第二个then 外部第二个then
+
+
+    new Promise((resolve, reject) => {
+        console.log("外部promise");
+        resolve();
+    }).then(() => {
+        console.log("外部第一个then");
+        new Promise((resolve, reject) => {
+            console.log("内部promise");
+            resolve();            //此时Promise状态已经扭转
+        }).then(() => {            // 仅执行了该方法的注册，尚未执行then的回调函数   Promise 的 then 的 注册微任务队列 和 执行 是分离的。
+            console.log("内部第一个then");   // 第一个then的回调
+        }).then(() => {
+            console.log("内部第二个then");    //内部的第二个 then 是需要第一个 then 的的执行完成来决定的，而第一个 then 的回调是没有执行，仅仅只是执行了同步的 .then 方法的注册，所以会进入等待状态。
+        });
+    }).then(() => {
+        console.log("外部第二个then");
+    });
+
+   // 外部promise  外部第一个then 内部promise  内部第一个then 外部第二个then  内部第二个then
+
+
+
+</script>
+
+</html>

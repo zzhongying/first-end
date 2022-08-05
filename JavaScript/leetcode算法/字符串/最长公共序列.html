@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+   // 给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0 。
+   // 一个字符串的 子序列 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
+   // 例如，"ace" 是 "abcde" 的子序列，但 "aec" 不是 "abcde" 的子序列。
+   // 两个字符串的 公共子序列 是这两个字符串所共同拥有的子序列。
+
+    var longestCommonSubsequence = function(text1, text2) {
+        let len1 = text1.length
+        let len2 = text2.length
+        if (len1 > len2){
+            compare(text1,text2)
+        }
+        else {
+            compare(text2,text1)
+        }
+
+        function compare(long,short) {  //长的字符串、短的字符串
+            let order =[]
+            for(let i=0;i<short.length;i++){
+                console.log(short[i])
+                if( long.indexOf(short[i]) !== -1){
+                    order.push(long.indexOf(short[i]))
+                }
+            }
+            console.log(order) //存储出现字符的顺序，其中最长的连续递增的序列长度是最长的公共子序列
+            //如果没有相同的字符，直接返回0
+            if(order.length === 0){
+                console.log(0)
+                return 0
+            }
+            //如果有相同的字符，判断长字符串与短字符串中相同字符的出现顺序
+            else {
+                let temp = 1
+                let result =[]
+                for(let i=1;i<order.length;i++){
+                    if(order[i] - order[i-1] > 0){
+                        temp ++
+                    }
+                    else {
+                        result.push(temp)
+                        temp = 1
+                    }
+                }
+                result.push(temp)
+                console.log(result)
+            }
+
+
+        }
+    };
+   longestCommonSubsequence("yjdeipjfqbth","tjdepfqbh")
+
+</script>
+</html>

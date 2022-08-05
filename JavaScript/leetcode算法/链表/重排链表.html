@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+//  给定一个单链表 L 的头节点 head ，单链表 L 表示为：
+//  L0 → L1 → … → Ln-1 → Ln
+//  请将其重新排列后变为：
+// L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → …
+
+//方法一：递归
+    var reorderList1 = function(head) {
+        if(head.next===null) return head
+        if( !head ) return null
+        let left = head
+        let right = head
+        let lnext = null
+        let rnext = null
+        let rpre = null
+        function reserve(node){
+            if(!node) return
+            while(right.next){
+                rpre = right
+                right = right.next
+            }
+            lnext = node.next
+            rnext = right.next
+            node.next = right
+            right.next = lnext
+            rpre.next = rnext
+            if( lnext===right) {  //链表长度为偶数时
+                rpre.next = lnext
+                lnext.next= null
+                return
+            }else if(node===right){  //链表长度为奇数时
+                rpre.next = node
+                node.next =null
+                return
+            }
+            else{
+                reserve(lnext)
+            }
+
+        }
+        reserve(left)
+
+        return head
+    };
+
+
+//方法二：快慢指针
+    var reorderList = function (head) {
+        if (!head || !head.next) return head
+        // 第一步，分割链表
+        let slow = head, fast = head
+        let pre = new ListNode
+        pre.next = head
+        while (fast && fast.next) {
+            slow = slow.next
+            pre = pre.next
+            fast = fast.next.next
+        }
+        pre.next = null
+
+        // 第二部，翻转后半截链表
+        let p = null
+        while (slow) {
+            const n = slow.next
+            slow.next = p
+            p = slow
+            slow = n
+        }
+
+        // 第三步，依次插入链表
+        console.log(head, p)
+        let current = head
+
+        while (head && p) {
+            const hNext = head.next
+            const pNext = p.next
+            head.next = p
+            p.next = hNext
+            p = pNext
+            head = hNext
+        }
+
+        // 如果依次插入后有剩余的链表，将剩余的链表插入到后面
+        if (p || head) {
+            let c = current
+            while(c && c.next) {
+                c = c.next
+            }
+            c.next = p || head
+        }
+
+        return current
+    }
+
+</script>
+</html>

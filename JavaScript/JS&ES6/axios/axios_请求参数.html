@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //请求方式：GET（天生不能携带请求体）,POST,PUT,DELETE
+    //请求参数： query参数(查询字符串参数)
+    //          params参数
+    //          请求体参数（json,urlencoded编码）
+
+    //-----------------------------------get请求--------------------------------------------
+    // 请求query参数
+    async function test2() {
+        //方式一：query直接拼在路径上
+       // let result = await axios.get('/person?id=12345679')
+        let result = await axios.get('/person',{
+            params:{   //query中参数配置项，叫params，是个坑！！！！
+                id:'12345679'
+            }
+        })
+    }
+
+    //请求params参数
+    async function test3() {
+        //简单写法，直接拼接，不带问号,只能自己拼接
+        //let result = await axios.get('/filter/19')
+        //完整写法
+        let result = await axios.get({
+            url:'/filter/19',
+            methods:'GET'
+        })
+    }
+
+    //-----------------------------------post请求--------------------------------------------
+    //----post请求体参数------------
+    async function test4() {
+        //简单写法之请求体为json格式
+      //  let result = await axios.post('/person',{name:'ZZ',age:'18'})
+        //简单写法之请求体为urlencoded格式
+     //   let result = await axios.post('/person','name=CC&age=32')
+
+        //完整写法
+        let result = await axios({
+            url:'/person',
+            methods:'POST',
+            params:{   //post请求即携带了query参数，又携带了请求体参数
+                a:1,
+                b:2
+            },
+            data:'name=CC&age=18'
+        })
+    }
+
+
+    //---------------------------------put请求----------------------------------------------
+    async function test5() {
+        //简单写法,json格式
+        //let result= await axios.put('/person',{id:'123456789',name:'ZZZ',age:'37'})
+
+        //urlencoded同上
+
+        //完整写法
+        let result = await axios({
+            url:'/person',
+            methods:'PUT',
+            data:{id:'132456789',name:'CC',age:'19'}
+        })
+    }
+
+    //-------------------------------delete请求---------------------------------------------------
+    async function test6() {
+        //简单写法,json格式
+      //  let result= await axios.delete('/person',{data:{id:'123456789'}})
+        //简单写法,urlencoded格式
+      //  let result= await axios.delete('/person',{data:'id=123456789'})
+
+        //完整写法
+        let result= await  axios({
+            url:'/person',
+            methods:'DELETE',
+            data:{
+                id:'1346789'
+            }
+        })
+    }
+
+</script>
+</html>

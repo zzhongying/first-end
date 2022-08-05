@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</body>
+<script>
+    //手写promise
+    var PENDING = "PENDING";   //正在进行
+    var FULFILLED = "FULFILLED";   //已成功
+    var REJECTED = "REJECTED";    //已失败
+
+
+    class Promise{
+        constructor(executor) {
+            this.status = PENDING
+            this.value = null   //存放成功的值
+            this.reason = null  //存放失败的值
+            this.onFulFilledCallbacks = [];
+            this.onRecjectedCallbacks =[]
+
+            //成功状态
+            let resolve = (value) =>{
+                if(this.status === PENDING){  //状态只能更改一次
+                    this.value = value
+                    this.status = FULFILLED  //更改状态
+                    this.onFulFilledCallbacks.forEach(fn => fn())
+                }
+            }
+
+            //失败状态
+            let reject = (value) =>{
+                if(this.status === PENDING){   //状态只能更改一次
+                    this.status = REJECTED
+                    this.reason = value
+                    this.onRecjectedCallbacks.forEach(fn => fn())
+                }
+            }
+
+            try{
+                //立即执行，将resolve,reject传给使用者executor
+                executor(resolve,reject)
+            }catch (e) {   //异常时抛出错误
+                reject(e)
+            }
+        }
+
+        //包含一个then方法，接收两个参数，onResolved和onRejected
+        then(onFulfilled,onRejected){
+            onFulfilled = typeof onFulfilled === 'function'? onFulfilled : function (value) {
+                return value
+            }
+
+            onRejected = typeof onRejected === 'function' ? onRejected : function (reason) {
+                throw new Error(reason)
+            }
+
+
+            if(this.status === FULFILLED){
+                onFulfilled(this.value)
+            }
+
+            if(this.status === REJECTED){
+                onRejected(this.reason)  //直接执行
+            }
+
+            if(this.status === PENDING){
+                //如果promise的状态是 pending，需要将 onFulfilled 和 onRejected 函数存放起来，等待状态确定后，再依次将对应的函数执行
+                this.onFulFilledCallbacks.push(()=>{
+                    onFulfilled(this.value)   //将fulfilled存入回调函数队列中
+                })
+
+                this.onRecjectedCallbacks.push(()=>{
+                    onRejected(this.reason)   //将reject存入回调函数队列中
+                })
+            }
+        }
+    }
+
+
+
+    //1.接收一个 Promise 实例的数组或具有 Iterator 接口的对象作为参数
+    //2.这个方法返回一个新的 promise 对象，
+    //3.遍历传入的参数，用Promise.resolve()将参数"包一层"，使其变成一个promise对象
+    //4.参数所有回调成功才是成功，返回值数组与参数顺序一致
+    //5.参数数组其中一个失败，则触发失败状态，第一个触发失败的 Promise 错误信息作为 Promise.all 的错误信息。
+    function promiseAll(promises) {
+        return new Promise(function (resolve,reject) {  //返回一个新的promise对象
+            if (!Array.isArray(promises)) {  //传入参数必须是promise数组
+                throw new TypeError(`argument must be a array`)
+            }
+            var resolveCount = 0
+            var promiseNum = promises.length
+            var resolveResult = []
+            for (let i = 0; i < promiseNum; i++){
+                //promise.resolve将数组内元素转换为promise对象
+                Promise.resolve(promises[i]).then(value => {
+                    resolveCount++
+                    resolveResult[i] = value     //如果成功，则存储每个promise的结果
+                    if(resolveCount == promiseNum){   //如果所有promise都成功了。则返回resolve
+                        return resolve(resolveResult)
+                    }
+                }).catch(err =>{   //在循环中，只要有一个失败，就return reject
+                        reject(err)
+                    })
+            }
+        })
+    }
+
+
+    //返回第一个到达的promsie状态
+    Promise.race = function (promises) {
+        return new Promise((resolve,reject)=>{
+            for(let i=0, len = promises.length;i<len; i++){
+                promises[i].then(resolve,reject)   // promise的状态只能改变一次,只要一个状态改变，则直接return
+            }
+        })
+
+    }
+
+
+
+</script>
+</html>

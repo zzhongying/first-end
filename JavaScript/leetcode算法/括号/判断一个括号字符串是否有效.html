@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>判断一个括号字符串是否有效</title>
+</head>
+<body>
+
+</body>
+<script>
+    var canBeValid = function(s, locked) {
+        if(s.length%2 !== 0){
+            console.log( "false" )   //如果是奇数，则直接返回
+            return false
+        }
+
+        //创建两个栈openStack和universalStack分别存储固定的开括号和通用括号的下标。
+        let openStack =[]   //固定的开括号
+        let universal =[]  //通用括号栈
+        let len = s.length
+        for(let i=0;i<len;i++){
+            if(locked[i] === '0'){
+                universal.push(i)
+            }
+            else {
+                if(s[i] === '('){
+                    openStack.push(i)
+                }else if(s[i] === ')'){
+                    if(openStack.length){  //优先从固定开括号栈中匹配右括号
+                        openStack.pop()
+                    }else {
+                        if(universal.length){
+                            universal.pop()
+                        }
+                        else                //如果通用括号栈与固定开合栈都无法闭合右括号，则无法匹配
+                            return false
+                    }
+                }
+            }
+        }
+
+        //消耗openStack中存在内容,如果开括号最后的坐标大于通用括号，则无法消灭
+        while ( openStack.length && universal.length ){
+            if (openStack.pop() > universal.pop()){
+                return false
+            }
+        }
+
+        //如果openStack中还存留内容，则无法匹配。当openStack中无内容，但universal长度为奇数，则不匹配
+        return openStack.length === 0 && universal.length%2 === 0
+
+    };
+
+    canBeValid("))()))","010100")
+
+
+</script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise面试题5</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    new Promise((resolve, reject) => {
+        console.log("A");
+        resolve();
+    }).then(() => {
+        console.log("C");
+        new Promise((resolve, reject) => {
+            console.log("D");
+            resolve();
+        }).then(() => {
+            console.log("E");
+        }).then(() => {
+            console.log("B");
+        });
+    }).then(() => {
+        console.log("I");
+    });
+
+
+    new Promise((resolve, reject) => {
+        console.log("P");
+        resolve();
+    }).then(() => {
+        console.log("G");
+        new Promise((resolve, reject) => {
+            console.log("W");
+            resolve();
+        }).then(() => {
+                console.log("Q");
+        }).then(() => {
+            console.log("Z");
+        });
+    }).then(() => {
+        console.log("K");
+    });
+
+
+
+</script>
+</html>

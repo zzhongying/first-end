@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="big">
+
+</div>
+<div id="test"  >
+
+</div>
+</body>
+<style>
+
+    #big{
+        width: 20vw;
+        height: 120vh;
+        margin-bottom: 30vh;
+        background-color: cornflowerblue;
+    }
+
+    #test{
+        width: 20vw;
+        height: 20vh;
+        background-color: darkseagreen;
+    }
+    body{
+        overflow: scroll;
+    }
+
+
+
+</style>
+<script>
+    function isInViewPortOfOne(el){
+        const viewOortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+        const offTop = el.offsetTop
+        const scrollTop = document.documentElement.scrollTop
+        return  offTop <= viewOortHeight + scrollTop
+    }
+
+    isInViewPortOfOne(document.getElementById(test))
+
+</script>
+</html>

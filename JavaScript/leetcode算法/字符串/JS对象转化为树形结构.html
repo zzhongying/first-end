@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    const flatArr = [
+        { id: '01', parentId: 0, name: '节点1' },
+        { id: '011', parentId: '01', name: '节点1-1' },
+        { id: '0111', parentId: '011', name: '节点1-1-1' },
+        { id: '02', parentId: 0, name: '节点2' },
+        { id: '022', parentId: '02', name: '节点2-2' },
+        { id: '023', parentId: '02', name: '节点2-3' },
+        { id: '0222', parentId: '022', name: '节点2-2-2' },
+        { id: '03', parentId: 0, name: '节点3' },
+    ]
+
+    let result =[]
+
+    //递归
+    //ruduce函数由一个回调函数与一个初始值组成
+    function getTreeDate(arr,parentId) {
+        function loop(parentId) {
+            return arr.reduce((pre,cur)=>{
+                if(parentId===cur.parentId){
+                    cur.children = loop(cur.id)
+                    pre.push(cur)
+                }
+                return pre
+            },[])
+        }
+        return loop(parentId)
+    }
+    console.log(getTreeDate(flatArr,0))
+
+
+    //过滤
+    function getData(arr) {
+        let data = arr.filter(item=>{
+            item.children = arr.filter(e=>{
+                return item.id===e.parentId
+            })
+            return !item.parentId   //找到根节点的数据
+        })
+        return data
+    }
+
+    console.log(getData(flatArr))
+
+</script>
+</html>

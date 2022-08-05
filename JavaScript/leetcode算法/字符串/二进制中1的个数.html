@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二进制中1的个数</title>
+</head>
+<body>
+
+</body>
+<script>
+    //编写一个函数，输入是一个无符号整数（以二进制串的形式），返回其二进制表达式中数字位数为 '1' 的个数（也被称为 汉明重量).）。
+    //方法一：直接计数
+    var hammingWeight = function(n) {
+        console.log(n.toString(2))
+        let result =0
+        n = n.toString(2)
+        for (let i of n){
+            if(i==="1")
+                result += 1
+        }
+        console.log(result)
+        return result
+
+    };
+    hammingWeight(0o00000000000000000000000000001011)
+
+    //方法二：位运算优化
+    var hammingWeight1 =function (n) {
+        let ret =0
+        while (n){
+            n &= (n-1)   //只取调最右边的一个一
+            ret ++
+        }
+        console.log(ret)
+        return ret
+    }
+
+    hammingWeight1(0o0000000000000000000000000001011)
+</script>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    //正整数 n 代表生成括号的对数，请设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+    //输入：n = 3
+    // 输出：["((()))","(()())","(())()","()(())","()()()"]
+    var generateParenthesis = function(n) {
+        let path =[]
+        let result =[]
+        function dfs(left,right,path ) {
+            if(left === right && left === n){  //有效情况
+                result.push(path)
+            }
+            if(left < right || left >n){   //左括号数量小于右括号
+                return ;   //当左括号小于右括号且左括号数量大于n，结束
+            }
+            dfs(left+1,right,path+'(')
+            dfs(left,right+1,path+')')
+        }
+        dfs(0,0, path)
+
+        console.log(result)
+        return result
+    };
+
+    generateParenthesis(3)
+</script>
+</html>

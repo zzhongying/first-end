@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //方式一：暴力，过不了
+    var findMaximumXOR = function(nums) {
+        if(nums.length <= 1) return 0;
+        let item = 0
+        for( let i = 0 ; i < nums.length ; i++ ){
+            for( let j = i + 1 ; j < nums.length ; j++ ){
+                if( (nums[i] ^ nums[j]) > item ) item = (nums[i] ^ nums[j])
+            }
+        }
+        return item
+    };
+
+
+    //方式二：先去重，找到最高位为 1 的一些最大值，然后求异或
+    var finalMaximumXOR1=function(nums){
+        if (nums.length === 1) return 0;
+        //去重
+        nums = Array.from(new Set(nums));
+        //获取最大数字的二进制长度
+        const len = Math.max(...nums).toString(2).length;
+        let max = 0;
+        const MAXIUM = 2 ** (len - 1);
+        const r = nums.filter(f => f >= MAXIUM);
+        for (let i = 0; i < nums.length; i++) {
+            max = Math.max(max, ...r.map(m => m ^ nums[i]));
+        }
+        return max;
+
+    }
+
+    findMaximumXOR([3,10,5,25,2,8])
+
+</script>
+</html>

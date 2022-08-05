@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>最长连续序列</title>
+</head>
+<body>
+
+</body>
+<script>
+    //方法一：直接暴力
+    //给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。
+    var longestConsecutive = function(nums) {
+        if( nums.length == 0) return 0
+        let temp_result=[]
+        let result=1
+
+        nums = Array.from(new Set(nums))  //去重
+        //快速排序事件复杂度是O（n）
+        var QuietSort = function (arr1,L,R) {
+            if (L>=R){
+                return ;
+            }
+            var left = L
+            var right=R
+            var pivot = arr1[left]
+            while (left<right){
+
+                //情况一：标记值小于最右侧数据--------------------------------
+                while (left<right && pivot <= arr1[right]){
+                    right --
+                }
+                if(left < right){    //此时不满足while循环，进入循环的前提是pivot>arr1[right]
+                    arr1[left] = arr1[right]
+                }
+                //情况二：标记值大于最左侧数据--------------------------------
+                while(left< right && pivot >= arr1[left]){
+                    left ++
+                }
+                if(left < right){
+                    arr1[right] = arr1[left]
+                }
+                if(left >= right){
+                    arr1[left] = pivot
+                }
+
+            }
+            QuietSort(arr1, L,right-1)
+            QuietSort(arr1,right+1,R)
+        }
+
+        QuietSort(nums,0,nums.length-1)  //数组从小到大排序
+
+        for(let i = 1;i<nums.length;i++){
+            if(nums[i]-nums[i-1] == 1){
+                result ++
+            }
+           else {
+               temp_result.push(result) //如果在中途有不连续的，则记录结果并将序列长度初始化
+               result = 1
+            }
+        }
+        temp_result.push(result)   //如果后半部全部连续，则直接push最终结果
+        console.log(Math.max(...temp_result))
+
+    };
+    longestConsecutive([100,4,200,1,3,2])
+
+
+    //方法二：使用hash表
+
+
+</script>
+</html>

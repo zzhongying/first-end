@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    // Promise 串联多个操作任务
+    // (1) promise的then返回一个新的promise，可以开成then的链式调用
+    // （2）通过then的链式调用串联多个同步、异步任务
+    new Promise((resolve,reject)=>{
+       setTimeout(()=>{
+           console.log('执行任务1（异步）')
+           resolve(1)
+       },1000)
+    }).then(
+        value => {
+            console.log('执行任务1结果：',value)
+            console.log('执行任务2(同步)',value)
+            return 2   //同步可以直接return，自动封装成promise对象
+        }
+    ).then(
+        value => {
+            console.log('任务2结果:',value)  // 上一个then函数的成功返回值
+
+            return new Promise((resolve ,reject)=>{
+                setTimeout(()=>{
+                    // 启动异步任务3：异步任务需要自己返回一个promise对象
+                    console.log('执行任务3（异步）')
+                    resolve(3)
+                },1000)
+            })
+        },
+    ).then(
+        value => {
+            console.log('任务3的结果:', value)
+        }
+    )
+
+    //求上述的答应输出
+
+</script>
+</html>

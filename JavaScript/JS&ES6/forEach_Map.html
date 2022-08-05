@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>forEach_Map</title>
+</head>
+<body>
+
+</body>
+<script>
+    let array =[1,2,3,4,5,6]
+    array.forEach((value,key)=>{
+        return array[key] = value * key
+    })
+
+    console.log(array)  //[0, 2, 6, 12, 20, 30]
+    let array2 =[1,2,3,4,5,6]
+    let array3=array2.map(value=>{
+        return value * value
+    })
+    console.log(array2)  //[1,2,3,4,5,6] 原函数没变
+    console.log(array3)  //[1, 4, 9, 16, 25, 36] 返回新的数组
+
+</script>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>圣杯布局</title>
+</head>
+<body>
+<div class="header">
+    <h4>header</h4>
+</div>
+
+<div class="container">
+    <div class="middle">
+        <h4>middle</h4>
+        <p>middle-content=========================================================================================================================================233333</p>
+    </div>
+
+    <div class="left">
+        <h4>left</h4>
+        <p>left-content</p>
+    </div>
+
+    <div class="right">
+        <h4>right</h4>
+        <p>right-content</p>
+    </div>
+</div>
+
+<div class="footer">
+    <h4>footer</h4>
+</div>
+
+</body>
+<style>
+.footer, .header{
+    background-color: darkseagreen;
+    min-height: 60px;
+}
+
+.container{
+    padding-left: 200px;
+    padding-right: 300px;
+    overflow: hidden;
+}
+
+.left, .right, .middle{
+    min-height: 500px;
+    float: left;
+    position: relative;
+
+}
+
+/*防止超出的text溢出*/
+.middle p{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap
+}
+
+
+.left{
+    background-color: antiquewhite;
+    margin-left:-100% ;
+    left: -200px;
+    width: 200px;
+}
+
+.right{
+    background-color: #cbd999;
+    margin-left: -300px;
+    right: -300px;
+    width: 300px;
+}
+
+.middle{
+    width: 100%;
+    background-color: #f5c1af;
+
+}
+
+</style>
+</html>

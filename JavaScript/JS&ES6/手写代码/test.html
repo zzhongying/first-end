@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+   //防抖&节流函数
+    function debounce(fn,wait) {
+        let time = null
+        return function () {
+            let context =this
+            let args = arguments
+
+            //如果此时已经存在定时器，则取消
+            if(time){
+                clearTimeout(time)
+                time = null
+            }
+
+            time = setTimeout(()=>{
+                fn.apply(context,args)
+            },wait)
+        }
+    }
+
+    function throttle(fn,delay) {
+        let curTime = Data.now()
+        return function () {
+            let nowTime = Data.now()
+            let content=this
+            let args = arguments
+            if(nowTime-curTime>=delay){
+                fn.apply(content,args)
+            }
+        }
+    }
+
+    Function.prototype.myCall = function (context) {
+        if( typeof this !== 'function' ){
+            throw new Error(`${this} is not a function`)
+        }
+        let result = null
+        //如果传入的是基本类型，则需要object
+        context = Object(context)|| window
+        context.fn = this
+        let args = [...arguments].slice(1)  //删除第一个，第一个是this
+        result = context.fn(...args)
+        delete  context.fn
+        return result
+    }
+
+    Function.prototype.myBind = function (context) {  //第一个obj，第二个是数组
+        if(typeof this !== 'function'){
+            throw new Error(`${this} is not a function`)
+        }
+        let result = null
+        context.fn = this
+        if(arguments[1]){
+            result = context.fn(arguments[1])
+        }
+        delete context.fn
+        return result
+    }
+
+    //手写bind函数
+    Function.prototype.myBind = function (context) {
+        if(typeof this !== 'function'){
+            throw new Error(`${this} is not a function`)
+        }
+        let args = [...arguments].slice(1)
+            fn =this
+
+        return function Fn() {
+            return fn.apply(
+                this instanceof Fn ? this : context,
+                args.concat(...arguments)  //如果又单独传递了参数进来
+            )
+        }
+    }
+
+    Object.defineProperty('111')
+
+
+</script>
+</html>

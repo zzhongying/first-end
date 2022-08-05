@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>55-2. 平衡二叉树</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    var isBalanced = function(root) {
+        if( !root) return true
+        var left = TreeNodeDeep(root.left)  //左子树节点深度
+        var right = TreeNodeDeep(root.right)  //右子树节点深度
+        const diff = left - right
+        if( Math.abs(diff) >1) return false
+        return isBalanced(root.left) && isBalanced(root.right)
+    };
+
+    //计算节点深度
+    var TreeNodeDeep = function (root) {
+        if( !root ) return 0;
+        else{
+            //一个二叉树的深度等于此树的左子树深度与右子树深度中的最大值+1
+            return Math.max(TreeNodeDeep(root.left),TreeNodeDeep(root.right)) + 1
+        }
+    }
+
+</script>
+</html>

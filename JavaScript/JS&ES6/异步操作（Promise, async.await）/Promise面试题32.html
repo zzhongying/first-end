@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    const p1 = new Promise((resolve) => {
+        setTimeout(() => {
+            resolve('resolve3');
+            console.log('timer1')
+        }, 0)
+        resolve('resovle1');
+        resolve('resolve2');
+    }).then(res => {
+        console.log(res)  // resolve1
+        setTimeout(() => {
+            console.log(p1)
+        }, 1000)
+    }).finally(res => {
+        console.log('finally', res)
+    })
+
+    //resovle1 - finally:undefined - timer1 - promise对象{<resolved>: undefined}
+    //finally的上一个then方法没有返回值，所以finally中的res是undefined
+</script>
+</html>

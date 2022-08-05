@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    //请求拦截器
+    axios.interceptors.request.use((config)=>{
+        config.baseURI ='http://127.0.0.1:5000'
+        return config
+    })
+
+    //响应拦截器：
+    axios.interceptors.response.use(
+        //响应成功
+        (result)=>{
+            console.log(result,'响应成功')
+            return result.data
+        },
+
+        //响应失败
+        (err)=>{
+            console.log(err,'响应失败')
+            return Promise.reject(err)
+         }
+    )
+
+    async function test1() {
+       try{
+           let result = await axios({
+               url:'/person',
+               method:'GET'
+           })
+       }catch (e) {
+            console.log('失败了',e)
+       }
+    }
+
+</script>
+</html>

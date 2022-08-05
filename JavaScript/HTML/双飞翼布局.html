@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>双飞翼布局</title>
+</head>
+<body>
+<div class="header">
+    <h4>header</h4>
+</div>
+
+<div class="container">
+    <div class="middle">
+        <h4>middle</h4>
+        <p>middle-content=========================================================================================================================================233333</p>
+    </div>
+</div>
+
+    <div class="left">
+        <h4>left</h4>
+        <p>left-content</p>
+    </div>
+
+    <div class="right">
+        <h4>right</h4>
+        <p>right-content</p>
+    </div>
+
+<div class="footer">
+    <h4>footer</h4>
+</div>
+</body>
+
+<style>
+
+    .container{
+        width: 100%;
+        float: left;
+    }
+    .middle{
+        margin: 0 200px;
+        background-color: #f5c1af;
+        height: 60vh;
+        min-width: 200px;
+    }
+    .middle p{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .left{
+        width: 200px;
+        float: left;
+        margin-left: -100%;
+        background-color: antiquewhite;
+        height: 60vh;
+    }
+
+    .right{
+        width: 200px;
+        float: left;
+        margin-left: -200px;
+        background-color: #cbd999;
+        height: 60vh;
+    }
+
+    .footer, .header{
+        background-color: darkseagreen;
+        min-height: 60px;
+    }
+
+    .footer{
+        clear: both;
+    }
+</style>
+</html>

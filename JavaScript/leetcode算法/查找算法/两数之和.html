@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>两数之和</title>
+</head>
+<body>
+
+</body>
+<script>
+    var twoSum = function(nums, target) {
+        let hash = {}
+        for (let i=0;i<nums.length;i++){
+            if(hash[target-nums[i]] !== undefined){
+                return [i,hash[target-nums[i]]]
+            }
+            hash[nums[i]] = i
+        }
+        return []
+    };
+    twoSum([2,7,11,15,7],9)
+</script>
+</html>

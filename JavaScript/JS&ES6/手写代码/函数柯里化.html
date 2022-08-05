@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    // 函数柯里化指的是一种将使用多个参数的一个函数转换成一系列使用一个参数的函数的技术。
+    //实现add(1)(2)(3)(4) = 10, add(1)(1,2,3)(2) =9
+    function add() {
+
+        //将传入的不定参数转换为数组对象
+        var _args = Array.prototype.slice.call(arguments)
+
+        var _adder = function () {
+            _args.push(...arguments)  //合并参数
+            return _adder
+        }
+
+        //toString隐形转换的特性
+        _adder.toString = function () {
+            return _args.reduce(function (a,b) {   //reduce常用于累加
+                return a+b;
+            },0)
+        }
+
+        // toString
+        return _adder
+    }
+
+    let a = add(1,2,3)
+    let b = add(1)(2)(3)
+    console.log(a == 6)  //true
+    console.log(b)
+
+
+
+</script>
+</html>

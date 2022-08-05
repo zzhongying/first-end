@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var a=3;
+    function c(){
+        console.log(a);
+    }
+//js中变量的作用域链与定义时的环境有关，与执行时无关。执行环境只会改变this、传递的参数、全局变量等
+    (function(){
+        var a=4;
+        console.log(a)
+        c();
+    })();
+
+    //3
+</script>
+</html>

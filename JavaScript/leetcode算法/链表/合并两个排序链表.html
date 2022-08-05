@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var mergeTwoLists = function(l1, l2) {
+        //要点：新链表
+        if( !l1) return l2
+        if( !l2) return l1
+        //不得改变原链表，而是形成新链表
+        const prehead = new ListNode(-1);  //创建并初始化一个新链表
+        let prev = prehead;
+        while(l1 && l2){
+            if(l1.val <= l2.val){
+                prev.next = l1
+                l1=l1.next
+            }else{
+                prev.next = l2
+                l2=l2.next
+            }
+            prev = prev.next
+        }
+        prev.next = l1? l1 :l2
+
+        return prehead.next
+
+    };
+
+
+</script>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    // 全局方法 observe 的作用是用来观察一个对象，将_data对象的属性全部转化为 响应式属性。
+    // observe(_data, true)
+    function observe(value, asRootData) {
+        if(!isObject(value)) {
+            return
+        }
+        var ob;
+   // ...
+        //
+        ob = new Observer(value);
+
+  //  ...
+
+        return ob;
+    }
+    
+    
+    var Observe = function Observe(value) {
+        if(typeof value !== 'object' || 'function'){
+            //基础对象直接监听。。。
+            Object.defineProperty(target, name, {         //如果传入的值不是对象，则执行对目标属性的描述符（实现双向绑定）
+                get() {
+                    return value;
+                },
+                set(newVal) {
+                    if (newVal !== value) {
+                        if (typeof value === 'object' || Array.isArray(value)) {        //继续递归
+                            Observer(value);
+                        }
+                        value = newVal;
+                    }
+                    renderView();                  //当目标类型为非对象时，准备修改属性内容时，执行renderView（执行视图渲染相关逻辑）
+                }
+            });
+        }
+
+        //对象类型调用专用的监听方法
+        if(Array.isArray(value)){  //如果监听目标是数组，则调用数组监听方法
+            this.observeArray(value)
+        }else {   //如果监听的是对象，则调用对象监听方法
+            this.observeObject(value)
+        }
+
+    }
+
+    Observe.prototype.observeArray = function observeArray(items) {
+        for(var i=0;i<items.length; i++){
+            observe(items[i])
+        }
+    }
+
+    // 遍历obj的属性，将obj对象的属性转化为响应式属性
+    Observe.prototype.observeObject = function observeObject(items) {
+        var key = Object.keys(items)
+        for(var i=0;i<key.length;i++){   //递归遍历obj的所有属性
+            // 给obj的每一个属性都赋予getter/setter方法。
+            // 这样一旦属性被访问或者更新，这样我们就可以追踪到这些变化
+            defineReactive(items, key[i], items[key[i]])
+        }
+    }
+
+
+
+</script>
+</html>

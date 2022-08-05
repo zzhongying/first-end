@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    /*
+    * parameter: data:本节点的数据；
+    * 创建节点示例并插入到二叉树的正确位置
+    */
+    function Node(data,left,right){
+        this.data = data;
+        this.left = left;
+        this.right = right;
+    }
+    function BST(){
+        this.root = null;
+        this.insert = insert;
+    }
+    function insert(data){
+        var node = new Node(data,null,null);
+        if(this.root == null){
+            this.root = node;
+        }else{
+            var current = this.root;
+            while(true){
+                if(current.data > data){
+                    if(current.left === null){
+                        current.left = node;
+                        break;
+                    }
+                    current = current.left;
+                }else{
+                    if(current.right === null){
+                        current.right = node;
+                        break;
+                    }
+                    current = current.right;
+                }
+            }
+        }
+    }
+    var bst = new BST();
+    bst.insert(5);
+    bst.insert(3);
+    bst.insert(7);
+    bst.insert(2);
+    bst.insert(6);
+    bst.insert(8);
+    console.log(bst)
+    // 思路：求出根节点到p,q的 两个路径，判断两个路径最后相同的数字，即为公共祖先的val
+    var lowestCommonAncestor = function(root, p, q){
+        if( !root ) return ;
+        var ppath =[]
+        var qpath =[]
+        var ptemp =[]
+        var qtemp =[]
+        function finfPath(root,target,path,temp){
+            if(!root) return;
+            path.push(root.val)
+            if(root.val == target){
+                temp.push(...path)
+                return temp;
+            }
+            finfPath(root.left,target,path,temp)
+            finfPath(root.right,target,path,temp)
+            path.pop()
+        }
+
+        finfPath(root,p.val,ppath,ptemp)
+        finfPath(root,q.val,qpath,qtemp)
+
+        console.log(ptemp)// root节点到p的路径
+        console.log(qtemp)// root节点到q的路径
+
+        for(var i =0; i < Math.max( ptemp.length , qtemp.length ); i++){  //找第一个公共祖先的val
+            if(ptemp[i] - qtemp[i] !=0){
+                var res = ptemp[i-1]
+                break;
+            }
+        }
+
+        function findNode(root,target){   //拿到上述val对应的节点
+            if(!root) return ;
+            if(root.val == target){
+
+                return root
+            }
+            findNode(root.left,target)
+            findNode(root.right,target)
+        }
+
+        return findNode(root,res)
+
+    };
+
+
+</script>
+</html>

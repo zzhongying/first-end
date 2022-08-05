@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机器人的运动范围</title>
+</head>
+<body>
+
+</body>
+<script>
+    /**
+     * @param {number} m
+     * @param {number} n
+     * @param {number} k
+     * @return {number}
+     */
+    var movingCount = function(m, n, k) {
+        if( k == 0){
+            return 1
+        }
+
+        let result = 0
+
+        //创建访问数组
+        var visited = new Array();
+        for(var i=0;i<m;i++){
+            visited[i]=new Array();
+            for(var j=0;j<n;j++){
+                visited[i][j]="";
+            }
+        }
+
+        //判断当前方格的坐标和
+        var all =(m,n)=>{
+            let total = 0
+            m = m.toString().split("")
+            n = n.toString().split("")
+            for (i=0;i<m.length;i++){
+                 total += Number(m[i])
+            }
+            for(i=0;i<n.length;i++){
+                total += Number(n[i])
+            }
+            return total
+        }
+
+        var dfs =(i,j,k)=>{
+            if( i>= m || j>=n || i<0 || j<0 ){    //越界
+                return ;
+            }
+            if( all(i,j)> k ){             //不满足条件
+                return ;
+            }
+            //此时，格子各位数加起来小于k，判断该格子是否走过
+            if( visited[i][j] != 0 ){     //若不为0，则表明已经走过，则不计算该格子,直接返回
+               return ;
+            }
+
+            visited[i][j] =1      //格子未走过，置为1，且可走的格子数+1
+            result += 1
+            //向上下左右遍历
+            dfs(i-1,j,k)
+            dfs(i,j-1,k)
+            dfs(i+1,j,k)
+            dfs(i,j+1,k)
+        }
+
+        dfs(0,0,k)  //注意：此时不能双层循环，否则会遍历所有格子，而不是计算能达到的格子
+
+
+        console.log(visited)
+        console.log(result)
+        return result
+    };
+
+    movingCount(16,8,4)   //15
+
+</script>
+
+</html>

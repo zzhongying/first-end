@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+   // 编写一个函数来查找字符串数组中的最长公共前缀。如果不存在公共前缀，返回空字符串 ""。
+    var longestCommonPrefix = function(strs) {
+        if(strs.length === 0){
+            return ""
+        }
+        for(let i=0;i<strs.length;i++){
+            let ch = strs[0].charAt(i)  //第一个字符串的第i个字符
+            // i == strs[j].length()表示i是其他字符的总长
+            // ch != strs[j].charAt(i)遇到不一样的字符
+            for(let j=1; j<strs.length;j++){
+                //如果前i个字符不相等，且第一个字符串已经遍历完，则返回前i-1个字符串
+                if(ch !== strs[j].charAt(i) || i == strs[j].length){
+                    // console.log(strs[0].slice(0,i))
+                    return strs[0].slice(0,i)
+                }
+            }
+        }
+        return strs[0]
+    };
+
+
+   longestCommonPrefix(["f","flow","flight","fgfe"])
+</script>
+</html>

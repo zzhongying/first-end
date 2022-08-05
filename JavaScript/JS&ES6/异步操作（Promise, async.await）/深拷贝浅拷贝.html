@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var p = {
+        "id":"007",
+        "name":"刘德华",
+        "books": new Array("三国演义","红楼梦","水浒传"),
+        "wife":{
+            "id":"008",
+            "name":"刘德的妻子",
+            "address":{
+                "city":"北京",
+                "area":"海淀区"
+            }
+        }
+    }
+
+    //深拷贝：
+    function copyObj(obj) {
+        let newObj = {};
+        for( let key in obj){
+            if( typeof obj[key] == 'object'){   //如果是引用；类型，则递归
+                newObj[key] = copyObj(obj[key])
+            }else {
+                newObj[key] = obj[key];    //如果是基本类型，则直接赋值
+            }
+        }
+        return newObj
+
+    }
+
+    console.log(copyObj(p))
+
+    //浅拷贝：
+    var p2 = {}
+    for (let key in p){
+        p2[key] = p[key]
+    }
+    p2.books[0] = '四书五经'
+    p2.name = '吴彦祖'   //因为arrat属于引用类型，属于存储地址类型，而name为为属性基本类型，赋的是基本数据
+    console.log(p2)
+    console.log(p)   //p中的books[0]同样变成四书五经，两者的books内存地址一致，一改全改
+
+
+
+
+
+</script>
+</html>

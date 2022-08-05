@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    // for (var i = 1; i <= 5; i++) {
+    //     setTimeout(function timer() {
+    //         console.log(i)
+    //     }, i * 1000)    //输出6遍6
+    // }
+//方法一：使用let定义i
+//     for (let i = 1; i <= 5; i++) {
+//         setTimeout(function timer() {
+//             console.log(i)
+//         }, i * 1000)    //输出1,2,3,4,5
+//     }
+
+//方法二，使用settimeout的第三个参数
+    // setTimeout方法的第一个参数就是一个代码串或者一个函数，第二个参数设置延时时间，单位是毫秒（ms），第三个及以后的参数则是要作为传入第一个执行函数中的参数存在的。
+//     for (var i = 1; i <= 5; i++) {
+//         setTimeout(function timer(j) {
+//             console.log(j)
+//         }, i * 1000, i)    //输出1,2,3,4,5
+//     }
+
+//方法三：使用闭包的方式，立即执行函数
+    for(var i =1;i<=5;i++){
+        (function (j) {
+            setTimeout(function () {
+                console.log(j)
+            },i*1000)
+        })(i)     //输出1,2,3,4,5
+    }
+</script>
+</html>

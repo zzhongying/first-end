@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    const promise1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('success')
+        }, 1000)
+    })
+
+    const promise2 = promise1.then(() => {
+        throw new Error('error!!!')
+    })
+
+    console.log('promise1', promise1)
+    console.log('promise2', promise2)
+
+    setTimeout(() => {
+        console.log('promise1', promise1)
+        console.log('promise2', promise2)
+    }, 2000)
+
+    //promise1，promise
+    //promise2， promise
+    //throw new Error：error！！！
+    // promise1, resolve 'success'
+    // promise2, reject 'error'
+</script>
+</html>

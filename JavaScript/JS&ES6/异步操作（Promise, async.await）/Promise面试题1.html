@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise面试1</title>
+</head>
+<body>
+
+</body>
+<script>
+    setTimeout(()=>{
+        console.log(1)
+    },0)
+    new Promise((resolve) => {
+        console.log(2)
+        resolve()
+    }).then(()=>{
+        console.log(3)
+    }).then(()=>{  // 只有当上个then执行完成并返回结果后，才执行输出4
+        console.log(4)
+    })
+    console.log(5)
+
+   //2 5 3 4 1
+
+</script>
+</html>

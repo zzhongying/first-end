@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul id="ul" onclick="ulClick">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+</body>
+
+
+<script>
+    // 事件委托
+    let ul = document.getElementById("ul");
+    ul.addEventListener("click", ulClick);               //给li标签的父元素ul标签添加点击事件，并绑定相应的事件委托函数，每次点击输出目标li标签
+    function ulClick(e) {
+        // 兼容性处理
+        let event = e || window.event;
+        let target = event.target || event.srcElement;
+        // 判断是否匹配目标元素
+        console.log(target)   //<li>标签
+        if (target.nodeName.toLocaleLowerCase === 'li') {
+            console.log('the content is: ', target.innerHTML);
+        }
+        console.log("li 标签被点击了：", e.target.innerHTML);
+    }
+</script>
+</html>

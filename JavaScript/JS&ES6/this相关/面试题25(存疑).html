@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    f = function() { return true; };
+    g = function() { return false; };
+    (function() {
+        if (g() && [] == ![]) {   //
+            f = function f() {return false;};
+            function g() {return true;}  //覆盖了外侧的g，所以if条件中g()为true
+        }
+    })();
+    console.log(f());
+
+    //
+</script>
+</html>

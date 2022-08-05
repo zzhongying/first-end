@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>32-1：从上到下打印二叉树</title>
+</head>
+<body>
+
+</body>
+<script>
+    /**
+     * Definition for a binary tree node.
+     *
+     */
+    // function TreeNode(val) {
+    //     this.val = val;
+    //     this.left = this.right = null;
+    // }
+    //
+    // //插入左子树
+    // let createTree = function () {
+    //     let treeNode = new TreeNode('3');
+    //     treeNode.left = new TreeNode('9');
+    //     treeNode.right = new TreeNode('20');
+    //     treeNode.left.left = new TreeNode(null)
+    //     treeNode.left.right = new TreeNode(null)
+    //     treeNode.right.left = new TreeNode('15')
+    //     treeNode.right.right = new TreeNode('7')
+    //
+    //     return treeNode;
+    // }
+
+    var levelOrder = function (root) {
+        if (root == null) {
+            return []
+        }
+        let result = []
+        const nodeQueue = [root];
+        while (nodeQueue.length) {
+            const n = nodeQueue.shift();
+            result.push(n.val)
+            if (n.left) nodeQueue.push(n.left)
+            if (n.right) nodeQueue.push(n.right)
+        }
+        console.log(result)
+        return result
+    };
+    levelOrder(createTree())
+
+</script>
+</html>

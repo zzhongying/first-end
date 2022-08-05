@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    setTimeout(()=>{   //立即放入宏队列
+        console.log('timeout callback1()')
+        Promise.resolve(3).then(
+            value => {   //会立即放入微队列中
+                console.log('Promise onResolved3()',value)
+            }
+        )
+    },0)
+    setTimeout(()=>{
+        console.log('timeout callback2()')
+    },0)
+    Promise.resolve(1).then(
+        value => {   //会立即放入微队列中
+            console.log('Promise onResolved1()',value)
+        }
+    )
+    Promise.resolve(2).then(
+        value => {
+            console.log('Promise onResolved2()',value)
+        }
+    )
+
+    //输出顺序：Promise onResolved1()-》Promise onResolved2()
+    // -》timeout callback1() =》Promise onResolved3()
+    // -》timeout callback2()
+</script>
+</html>

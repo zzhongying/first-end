@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    window.name = "11111";
+    let obj ={
+        name:"22222",
+        outer:function () {
+            this.name = "33333";   //outer中的this指向的是obj，所以在此行，修改了name，从222222变成了333333
+            console.log(this.name)   //3333333
+            function inner() {
+                console.log(this.name)
+            }
+            return inner;     //是一个闭包函数，所以this指向的是window
+        }
+    };
+
+    obj.outer()()  // 22222   执行了闭包函数
+
+
+</script>
+</html>

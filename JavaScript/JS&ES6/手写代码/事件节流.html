@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件节流</title>
+</head>
+<body>
+
+</body>
+<script>
+    function throttlle(fn,delay) {
+        let curTime = Data.now()
+
+        return function () {
+            let nowTime = Data.now()
+                arg = arguments
+                context = this
+// 如果两次时间间隔超过了指定时间，则执行函数。
+            if(nowTime - curTime >= delay){
+                curTime=Data.now()
+                return fn.apply(context,arg)  //大于延迟时执行，所以必须return
+            }
+
+
+        }
+    }
+</script>
+</html>

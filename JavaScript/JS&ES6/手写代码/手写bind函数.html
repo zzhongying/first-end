@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var name = '1111';
+    var obj = {
+        name: '2222'
+    };
+    function fn() {
+        console.log(this.name)
+    }
+    Function.prototype.MyBind = function(context){
+
+        var self = this
+        var arr1 = Array.prototype.slice.call(arguments, 1)
+        var temp = function () {}
+        var fn = function () {
+            var arr2 = Array.prototype.slice.call(arguments)
+            var newArgs = Array.prototype.slice.call(arguments)
+                arrsum = arr1.concat(arr2)
+            // 如果被new调用，this应该是fn的实例
+            // 如果为true，那就是返回的函数fn作为了一个构造函数使用，那么this指向新实例，不再是context
+            // 如果为false，那就是返回的函数fn作为了一个普通函数使用，那么this指向context或者window
+
+            return self.apply(this instanceof fn ? this : (context || window), arrsum.concat(newArgs) )
+        }
+        // 维护fn的原型
+        temp.prototype = self.prototype
+        fn.prototype = new temp()
+        return fn
+    }
+
+    var getFn = fn.MyBind(obj);
+    getFn()   //22222
+    var newObj = new getFn();   //undefined
+    console.log(newObj.name)   //
+
+
+
+</script>
+</html>

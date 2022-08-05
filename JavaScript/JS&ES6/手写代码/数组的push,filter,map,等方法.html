@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    //实现push
+    let arr=[]
+    Array.prototype.myPush = function () {
+        for(let i=0; i<arguments.length ; i++){
+            this[this.length] = arguments[i]
+        }
+        return this.length
+    }
+
+
+
+
+</script>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>、
+<script>
+    window.name="1111"
+    let obj ={
+        name:"22222",
+        outer:function () {
+            this.name = "333333"  //name = 333333
+            function inner() {
+                this.name ="44444";    //name:44444
+                function innerInner() {
+                    console.log(this.name);  //虽然innerInner是一个闭包函数，但是他外层的inner也是一个闭包函数
+                    // inner的this指向window，所以inner中的this.name修改了window.name的值为4444，所以内层的innerInner
+                    //的this.name指向的是已经被修改后的window.name
+
+                }
+                return innerInner()
+            }
+            return inner;
+        }
+    };
+
+    obj.outer()()();
+</script>
+</html>

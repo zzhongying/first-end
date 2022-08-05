@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>64.求 1 + 2 + … + n</title>
+</head>
+<body>
+
+</body>
+<script>
+    //求 1+2+...+n ，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
+
+    var sumNums2 = function(n) {   //不可行，使用了乘法
+
+        var result = 0
+        return n * 1 + n*(n-1)*0.5  //等差数列求和公式
+        // 前n项和公式为：Sn=n*a1+n(n-1)d/2或Sn=n(a1+an)/2
+
+    };
+
+    var sumNums = function (n) {
+        return n && ( n + self.sumNums(n-1))   //当n为0时，跳出循环
+    }
+
+    console.log(sumNums(5))
+    console.log(sumNums2(5))
+
+
+</script>
+</html>

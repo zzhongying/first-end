@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据流中的中位数-困难</title>
+</head>
+<body>
+
+</body>
+<script>
+    /**
+     * initialize your data structure here.
+     */
+    var MedianFinder = function() {    //初始化
+        this.stack =[]
+    };
+
+    /**
+     * @param {number} num
+     * @return {void}
+     */
+    MedianFinder.prototype.addNum = function(num) {
+        //若栈为空，则直接压入栈
+        if(this.stack.length == 0){
+            this.stack.push(num)
+            return ;
+        }
+
+        let left = 0
+        let right = this.stack.length-1
+        //二分查找，将数字放在最合适的位置
+        while (left<= right){
+
+            let mid = Math.floor((left+ right)/2)  //math.floor获得一个数的整数部分，而不是四舍五入
+            if( num == this.stack[mid] ) //如果有相等的数，直接插入
+            {
+                this.stack.splice(mid,0,num)   //在mid位置，删除0个元素，并添加num进入数组
+                return ;
+            }
+            else if(num < this.stack[mid]){  //小于中位数，向左查找
+                right = mid-1
+            }
+            else                 //大于中位数，向右查找
+            {
+                left = mid +1
+            }
+        }
+        //此时left > right, num插在right+1 和left-1的位置最为合适
+        this.stack.splice(right+1,0,num)
+    };
+
+    /**
+     * @return {number}
+     */
+    MedianFinder.prototype.findMedian = function() {
+        console.log(this.stack)
+        if(this.stack.length ==0 ){
+            return [];
+        }
+        if(this.stack.length%2 == 0){
+            let len = this.stack.length
+            return (this.stack[len/2] + this.stack[len/2 -1])/2
+        }
+        else {
+            let mid = Math.floor(this.stack.length/2)
+            return this.stack[mid]
+        }
+
+    };
+
+    /**
+     * Your MedianFinder object will be instantiated and called as such:
+     * var obj = new MedianFinder()
+     * obj.addNum(num)
+     * var param_2 = obj.findMedian()
+     */
+
+
+
+
+</script>
+</html>

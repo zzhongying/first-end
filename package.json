@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "html-loader": "^4.1.0",
+    "url-loader": "^4.1.1"
+  }
+}

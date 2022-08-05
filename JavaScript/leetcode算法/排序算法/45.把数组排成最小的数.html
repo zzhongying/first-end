@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>把数组排成最小的数</title>
+</head>
+<body>
+
+</body>
+<script>
+    /**
+     * @param {number[]} nums
+     * @return {string}
+     */
+    var minNumber = function(nums) {
+        n= nums.length
+        if( n <=1){
+            return nums[0].toString()
+        }
+
+        for(i=0;i<n;i++){
+            nums[i] = nums[i].toString() //把所有数字转换为字符串
+        }
+        var QuietSort = function (arr,L,R) {
+
+            if (L>=R){
+                return ;
+            }
+
+            var left = L,
+                right=R
+            priovt = arr[left]
+            while (left < right){
+                //依据字符串加减原则，可以直接比较 3+34 和 34+3的大小
+                while(left < right && (priovt + arr[right]) <= (arr[right] + priovt)){
+                    right --
+                }
+                if(left < right){
+                    arr[left] = arr[right]
+                }
+                while (left < right && (priovt + arr[left]) >= (arr[left] + priovt)){
+                    left ++
+                }
+                if(left < right){
+                    arr[right] = arr[left]
+                }
+                if(left >= right){
+                    arr[left] = priovt
+                }
+            }
+            QuietSort( arr, L, right-1 )
+            QuietSort( arr, right+1, R )
+
+        }
+
+        QuietSort(nums,0,n-1)
+        var result = ""
+        for(i=0;i<n;i++){
+            result += nums[i]
+        }
+
+        console.log(result)
+        return result
+
+    };
+
+    minNumber([3,30,34,5,9])
+</script>
+</html>

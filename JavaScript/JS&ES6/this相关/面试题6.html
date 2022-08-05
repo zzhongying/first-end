@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>闭包中的this</title>
+</head>
+<body>
+
+</body>
+<script>
+    //闭包是一个函数被当做参数传递出去的情况，这个函数会一致持有它父级的作用域链
+    //情况一：以return的方式返回一个函数
+    function print() {
+        return function () {
+            console.log(this)
+        }
+    }
+
+    let obj = {
+        a:1,
+        b:2
+    };
+
+    obj.print = print;
+
+    obj.print()();    //因为是以return的方式返回，所以this指向window
+
+    //正常的声明函数
+    function outer() {
+        let obj = {
+            inner:function () {
+                console.log(this)
+            }
+        }
+        obj.inner()
+    }
+
+    let o={
+        a:1,
+        b:2
+    }
+    o.outer = outer;
+    o.outer()  //obj
+
+
+</script>
+</html>

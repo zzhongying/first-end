@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组去重</title>
+</head>
+<body>
+
+</body>
+<script>
+    //方法一：ES6，使用数据结构集合
+    const array = [1, 2, 3, 5, 1, 5, 9, 1, 2, 8];
+    //Array.from() 方法从一个类似数组或可迭代的对象(包括 Array，Map，Set，String，TypedArray，arguments 对象等等)
+    // 中创建一个新的数组实例
+    //set对象Set 对象允许你存储任何类型的 唯一值 ，无论是原始值或者是对象引用，set中的元素是唯一的 new set[iterable]
+    //通过Set对象，对数组去重，结果又返回一个Set对象,通过from方法，将Set对象转为数组
+    function toSetUniq(arr) {
+        return Array.from(new Set(arr))  //
+    }
+    toSetUniq(array)
+
+    //方法二：使用filter：filter() 方法创建一个新的数组，新数组中的元素 是 通过检查 指定数组 中 符合条件的所有元素。
+    function unique(arr) {
+        //定义一个常量，为一个map对象
+        const res = new Map();
+
+        const b = arr.filter((a) => !res.has(a) && res.set(a, 1))  //没看懂？？？
+        // 过滤条件是，如果res中没有某个键，就设置这个键的值为1
+        console.log(b)
+        return b ;
+    }
+    unique(array)
+
+    //原型链
+    function uniqueArray(array) {
+        let map = {};
+        let res = [];
+        for(var i = 0; i < array.length; i++) {
+            if(!map.hasOwnProperty([array[i]])) { //当map自身原型链上没有指定数值，则添加
+                map[array[i]] = 1; //添加后给其设置标志符，表示包含某个数据
+                res.push(array[i]);
+            }
+        }
+        return res;
+    }
+
+</script>
+</html>

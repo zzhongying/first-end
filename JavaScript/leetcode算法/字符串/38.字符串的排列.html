@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>字符串的排列</title>
+</head>
+<body>
+</body>
+<script>
+    var permutation = function(s) {
+        let result =[]
+        let path = ""
+        let n = s.length
+        let visited =[]
+        function dfs(s,i) {
+          if( path.length === n ){
+              result.push(path)
+              return ;
+          }
+          for(let i=0;i<n;i++){
+              if(visited[i]){  //用于判断该节点是否访问过
+                  continue
+              }
+              visited[i] = true
+              path += s[i]
+              dfs(s,i+1,visited)
+              path = path.substr(0,path.length-1)  //字符串删除最后一位
+              visited[i] = false  //字符串最后一位弹出后，该位就变为未访问状态
+          }
+        }
+        dfs(s,0)
+        console.log(result)  //所有可能的组合，里面含有重复元素
+        // console.log(Array.from(new Set(result)))
+        return Array.from(new Set(result))
+
+    };
+
+    permutation("abc")
+</script>
+</html>

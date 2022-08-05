@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手写instanceof</title>
+</head>
+<body>
+
+</body>
+<script>
+    //用于判断构造函数fn是否出现在对象原型链中的任何位置
+    function myinstanceof(obj,fn) {
+        let proto = Object.getPrototypeOf(obj)   //获取对象的原型
+            fproto = fn.prototype
+
+        //递归判断fn的prototype是否出现在对象原型链中
+        while (true){
+            if(!proto){   //如果proto为空，表示已经遍历完整个原型链
+                return false
+            }
+            if (proto === fproto){   //如果找到，则返回true
+                return true
+            }
+            proto = Object.getPrototypeOf(proto)   //返回当前prot上一层的prptotype
+        }
+    }
+</script>
+</html>

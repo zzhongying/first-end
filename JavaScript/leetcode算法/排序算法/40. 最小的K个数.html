@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>最小的k个数</title>
+</head>
+<body>
+</body>
+<script>
+
+    //方法一：冒泡排序
+    var getLeastNumbers1 = function(arr, k) {
+        var temp
+        for(i in arr){
+           for(j in arr){
+               if(arr[i] <= arr[j]){
+                   temp = arr[i]
+                   arr[i] = arr[j]
+                   arr[j] = temp
+               }
+           }
+        }
+        t=[]
+        return arr.slice(0,k)
+    };
+
+   // getLeastNumbers1([5,8,3,6,3,7,0],3)
+
+
+    //方法二：快速排序
+    var getLeastNumbers2 = function(arr, k) {
+        var long = arr.length
+        if (long <= 1){
+            return arr
+        }
+        //排序算法
+        var QuietSort = function (arr1,L,R) {
+            if (L>=R){
+                return ;
+            }
+            var left = L
+            var right=R
+            var pivot = arr1[left]
+            while (left<right){
+
+                //情况一：标记值小于最右侧数据--------------------------------
+                while (left<right && pivot <= arr1[right]){
+                    right --
+                }
+                if(left < right){    //此时不满足while循环，进入循环的前提是pivot>arr1[right]
+                    arr1[left] = arr1[right]
+                }
+                //情况二：标记值大于最左侧数据--------------------------------
+                while(left< right && pivot >= arr1[left]){
+                    left ++
+                }
+                if(left < right){
+                    arr1[right] = arr1[left]
+                }
+                if(left >= right){
+                    arr1[left] = pivot
+                }
+
+            }
+            QuietSort(arr1, L,right-1)
+            QuietSort(arr1,right+1,R)
+        }
+
+        QuietSort(arr,0,long-1)
+
+        console.log(arr.slice(0,k))   //从小到大排序
+        return arr.slice(0,k)
+    };
+
+   //getLeastNumbers2([3,2,1],2)
+
+    //方法三：归并排序
+    var getLeastNumbers = function(arr, k) {
+        if(arr.length<=1){
+            return arr
+        }
+
+        function mergeSort(arr1)  {
+            let len = arr1.length
+            if(len < 2){
+                return arr1
+            }
+            let middle = Math.floor(len/2)       //返回小于等于x的最大整数
+
+            let left = arr1.slice(0, middle)        //拆分成为两个序列
+            let right = arr1.slice(middle, len)
+
+            let mergeleft = mergeSort(left)          //递归拆分成length==2的多个子序列
+            let mergeright = mergeSort(right)
+
+            return merge(mergeleft,mergeright)       //合并排序后的两个序列
+        }
+
+        const merge = (left, right)=> {
+            const result = [];
+
+            while (left.length && right.length){    //当左右序列均不为0时
+                if(left[0] <= right[0]) {        //左右两个序列的第一个元素判断，必须是<=，如果仅是小于，则排序会不稳定
+                    result.push(left.shift())
+                }
+                else{
+                    result.push(right.shift())
+                }
+            }
+
+            //在进入下列循环时，必有一个序列已经全部添加进result中了，这样才能跳出上述的while循环
+            while (left.length) result.push(left.shift());
+            while (right.length) result.push(right.shift());
+            return result          //返回新序列的结果
+        }
+
+        mergeSort(arr)
+        console.log(mergeSort(arr).slice(0,k))
+        return mergeSort(arr).slice(0,k)
+    };
+
+    getLeastNumbers([3,2,1],2)
+
+
+    var A = function (arr,K) {
+        var len = arr.length
+        if( len <= 1 ){
+            return arr
+        }
+
+        var QuiteSort = function (L,R,arr1) {
+            if (L>=R){
+                return ;
+            }
+            var left = L
+            var right = R
+            var priov = arr1[left]
+            while (left < right){
+                //右侧出现较小的数值
+               while (left < rihgt && priov <= arr1[right] ){
+                    right --
+               }
+               if( left < right ){
+                   arr1[left] = arr1[right]
+               }
+
+                //左边出现大的数值
+               while ( left< rihgt && priov >= arr1[left] ){
+                    left ++
+               }
+               if( left < right ){
+                    arr1[right] = arr1[left]
+               }
+
+               if(left >= right ){
+                   arr1[left] = priov
+               }
+            }
+
+            QuiteSort(L,right-1,arr1)
+            QuiteSort(right+1,R,arr1)
+        }
+
+
+
+    }
+
+
+</script>
+
+
+
+</html>

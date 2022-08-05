@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<ul id="ul" onclick="ulClick">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+<script>
+    //如果有100个li标签，给每一个标签添加点击事件，显然是不可能的
+    //可以给li标签的父标签ul添加点击事件，绑定点击事件
+    let ul =document.getElementsByTagName("ul")
+    ul.addEventListener("click",unClick)
+    function unClick(e){
+        let event = e || window.event
+        let target = event.target || event.srcElement
+        //将字符串转换为小写:
+        if(target.nodeName.toLocaleLowerCase === 'li'){
+            console.log("the content is:", target.innerHTML)
+        }
+        console.log("li标签被点击了")
+
+    }
+
+</script>
+</html>

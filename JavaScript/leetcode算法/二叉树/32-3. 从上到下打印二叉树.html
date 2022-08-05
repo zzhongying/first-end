@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>32-3. 从上到下打印二叉树</title>
+</head>
+<body>
+
+</body>
+<script>
+    var levelOrder = function(root) {
+        let count = 0; //当前的层数
+        let list = [root];
+        let result = [];  // 最终的结果
+        while(list.length){
+            if(!root) return [];
+            result[count] = [];  // 第count层的结果
+            let countNum = list.length; // 第count层的节点数
+            while(countNum --){
+                let temp = list.shift();
+                result[count].push(temp.val);
+                if(temp.left) list.push(temp.left);
+                if(temp.right) list.push(temp.right);
+            }
+            if(count%2 ==1){
+                result[count].reverse();
+            }
+            count++;
+        }
+        return result;
+    };
+
+    levelOrder([3,9,20,null,null,15,7])
+</script>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var isPalindrome = function(head) {
+        if(head.next === null) return true
+        //使用数组存值，直接判断
+        let arr1 = []
+        let cur =head
+        while(cur){
+            arr1.push(cur.val)
+            cur = cur.next
+        }
+        console.log(arr1)
+        let left = 0,right = arr1.length-1
+        let flag = true
+        for(let i=0;i<arr1.length;i++){
+            if(left<right){
+                if(arr1[left] !== arr1[right]){
+                    flag = false
+                    break;
+                }else{
+                    left+=1
+                    right-=1
+                }
+            }else{
+                break
+            }
+        }
+        return flag
+    };
+</script>
+</html>

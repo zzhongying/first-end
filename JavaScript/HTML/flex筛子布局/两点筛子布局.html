@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="box">
+    <span class="item"></span>
+    <span class="item"></span>
+</div>
+</body>
+<script>
+
+</script>
+<style>
+/*    justify-content：用于调整元素在主轴的对其方式；
+      align-items：用于调整元素在侧轴的对其方式；
+      align-self：设置元素自身在侧轴的对齐方式；
+      flex-direction：定义主轴是水平还是垂直或者正反方向。*/
+    .box{
+        width: 200px;
+        height: 200px;
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        display: flex;
+        /*flex-direction: column;   !*按列排序*!*/
+        justify-content: space-between;  /*space-between:两端对齐，space-evently：均分空间*/
+
+    }
+
+    .item{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #666666;
+
+    }
+
+   .item:nth-child(2){
+       align-self: flex-end;   /*设置其在侧轴的对齐方式在最后*/
+   }
+
+</style>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function a() {
+        var temp = 10;
+        function b() {
+            console.log(temp);
+        }
+        b();
+    }
+    a();  //10
+
+    function a() { //第二个a会覆盖第一个a
+        var temp = 10;
+        b();
+    }
+    function b() {
+        console.log(this)
+        console.log(temp);  //temp is not defined
+    }
+    a();  //b的this指向window
+
+
+</script>
+</html>

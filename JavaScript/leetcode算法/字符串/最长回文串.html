@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //给定一个包含大写字母和小写字母的字符串 s ，返回 通过这些字母构造成的 最长的回文串 。
+    // 在构造过程中，请注意 区分大小写 。比如 "Aa" 不能当做一个回文字符串。
+
+    var longestPalindrome = function(s) {
+        let hash ={},result=0,max_j =0
+        for(let i of s){
+            hash[i] = 0  //初始化
+        }
+        for(let i of s){
+            hash[i] ++
+        }
+        for(let i in hash){
+            // console.log(hash[i])
+            if(hash[i]%2 ==0){
+                result += hash[i]  //偶数均可构成回文子串
+            }
+            else {  //判断最大的奇数
+                result += hash[i]-1
+                if(hash[i]>max_j) max_j = hash[i]
+            }
+        }
+        if(max_j === 0){
+            return result  //全程没有奇数字符串产生
+        }
+        else{
+            return  result +1
+        }
+    };
+    longestPalindrome("abccccddaaghhhhh")
+
+</script>
+</html>

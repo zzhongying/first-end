@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    async function async1 () {
+        console.log('async1 start');
+        await new Promise(resolve => {
+            console.log('promise1')
+        })
+        console.log('async1 success');
+        return 'async1 end'
+    }
+    console.log('srcipt start')
+    async1().then(res => console.log(res))
+    console.log('srcipt end')
+
+    //srcipt start - async1 start - promise1 - srcipt end
+    // 因为await的promise没有返回值，所以状态始终处于pending状态，所以后续的async1 success 和 then函数中的输出不会执行
+
+</script>
+</html>

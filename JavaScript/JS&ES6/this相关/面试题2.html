@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var a = 10
+    var obj = {
+        a: 20,
+        say: () => {
+            console.log(this.a)
+        }
+    }
+    obj.say()
+
+    var anotherObj = { a: 30 }
+    obj.say.apply(anotherObj)
+
+
+    //var a = 10
+    var obj1 = {
+        a: 20,
+        say(){
+            console.log(this.a)
+        }
+    }
+    obj1.say()
+    var anotherObj1={a:30}
+    obj1.say.apply(anotherObj1)
+</script>
+</html>

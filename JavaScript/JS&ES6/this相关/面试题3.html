@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var obj = {
+        say: function() {
+            var f1 = () =>  {
+                console.log("1111", this);
+            }
+            f1();
+        },
+        pro: {
+            getPro:() =>  {
+                console.log(this);
+            }
+        }
+    }
+
+    var o = obj.say;
+    o();    //1111 + windows
+    obj.say();   // 1111 + obj
+    obj.pro.getPro();  //1111 + windows
+</script>
+</html>

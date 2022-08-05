@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function runAsync (x) {
+        const p = new Promise(r => setTimeout(() => r(x, console.log(x)), 1000))
+        return p
+    }
+    Promise.race([runAsync(1), runAsync(2), runAsync(3)])
+        .then(res => console.log('result: ', res))
+        .catch(err => console.log(err))
+
+    //1 result:1 , 2, 3
+    //race只捕获第一个到达的，其他的也会继续执行，但是不是被race捕获了，即不会进入then函数中
+</script>
+</html>

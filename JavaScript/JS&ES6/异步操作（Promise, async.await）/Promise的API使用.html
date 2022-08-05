@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            resolve('成功')   //resolve和reject只能改变一次，所以reject不会显示
+            reject('失败')
+        },1000)
+    }).then(         //接收成功的回调
+        value => {
+            console.log('onResolved()1',value)
+        }
+    ).catch(      //接收失败的回调
+        reason => {
+            console.log('onRejected',reason)
+        }
+    )
+
+    //例：产生一个成功值为1的Promise对象
+    const p1=new Promise((resolve ,reject)=>{
+        resolve(1)
+    })
+
+    const p2=Promise.resolve(2)
+    const p3=Promise.reject(3)   //导致失败的原因是3
+
+    p1.then(value => {
+        console.log(value)
+    })
+    p2.then(value => {
+        console.log(value)
+    })
+
+    p3.catch(reason => {   //失败的回调函数
+        console.log(reason)
+    })
+
+    //all返回一个新的Promise对象，只要有一个失败，就全都失败,都成功才行
+    const pall = Promise.all([p1,p3])
+    pall.then(
+        values => {
+            //多个p1成功后以数组形式返回，value成功
+            console.log('all onResolved()',values)
+        },
+        reason => {
+            console.log('all onRejected()',reason)
+        }
+    )
+
+    //返回的状态由第一个返回的请求决定，第一个成功，则返回成功状态，反之
+    const pRace = Promise.race([p1,p3])
+    pRace.then(
+        value => {
+            console.log(value)    //[p1,p3]
+        },
+        reason => {
+            console.log(reason)   //[p3,p1]
+        }
+    )
+
+
+</script>
+</html>

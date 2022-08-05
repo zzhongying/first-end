@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    // 1. 如果抛出异常，新Promise变为rejected，reason为抛出的异常值
+    // 2. 如果返回的是非Promise的任意值（return 2），新Promise变为resolved，value为返回的值
+    // 3. 如果返回的是另一个新Promise（return Promise.resolv e(3)），此Promise的结果就会成为新Promise的结果
+    const p = new Promise((resolve,reject)=>{
+        resolve(1)
+        //reject(2)
+
+    }).then(
+        value => {
+            console.log('onResolved1()',value)  //成功输出1
+            // return 2
+            // return Promise.resolve(3)  //成功 -> 调用下一个then函数中的resolve
+            return Promise.reject(4)  //失败 ->调用下一个then函数中的reject
+            // throw 5 //失败
+            // 想要中断Promise链，返回一个pending的promise即可
+            // return new Promise(()=>{})
+        },
+        reason => {
+            console.log('onRejected1()',reason)
+        }
+    )
+    p.then(
+        value => {
+            // 上个then函数未返回失败，即为成功
+            console.log('onResolved2()',value)  // 上一个then函数的成功的返回值，返回undefined也调用该方法
+        },
+        reason => {
+            console.log('onRejected2()',reason)  // 上一个then函数的失败返回值
+        }
+    )
+
+    //求上述的答应输出
+
+</script>
+
+
+</html>

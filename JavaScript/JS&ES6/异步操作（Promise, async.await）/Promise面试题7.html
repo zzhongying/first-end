@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise面试题7</title>
+</head>
+<body>
+
+</body>
+<script>
+    setTimeout(() => {
+        console.log('A');
+        new Promise(function (resolve, reject) {
+            console.log('B');
+            setTimeout(() => {   //虽然当前定时包含在另一个定时器中，但仍按照事件循环机制，按照顺序入队
+                console.log('C');
+            }, 0);
+            resolve();
+        }).then(function () {
+            console.log('D')
+        })
+    }, 0);
+
+    console.log('E');
+
+    setTimeout(() => {
+        console.log('F');
+
+    }, 0);
+
+    new Promise(function (resolve, reject) {
+        console.log('G');
+        // reject();
+        resolve();
+    }).then(function () {
+        console.log('H')
+    }).catch(function () {
+        console.log('I')      // resolved状态，不执行catch函数
+    })
+
+    console.log('J');
+
+
+
+
+</script>
+</html>

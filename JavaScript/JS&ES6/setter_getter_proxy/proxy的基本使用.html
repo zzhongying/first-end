@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //简单的使用demo
+    let test={
+        name:'Grace',
+        age:'20'
+    }
+//test已经成为了一个Proxy实例，我们对其的操作，都会被Proxy拦截。
+    test = new Proxy(test,{
+        get(target, key) {
+            // console.log("获取了getter属性")
+            // console.log(target[key])   //Grace
+            return target[key]
+        }
+    })
+    // console.log(test.name)
+
+    let test2={
+        name:'SFONE',
+        age:'24'
+    }
+
+    test2 = new Proxy(test2,{
+        get(target,key){
+            let result = target[key]
+            if( key === 'age' ){
+                result += '岁'
+            }
+            return result
+        },
+        set(target,key,value) {
+            if( key === 'age' && typeof value != Number){
+                throw Error('age字段必须为Number类型')
+            }
+            //Reflect.set()：在一个对象上设置一个属性。返回一个boolean值表示是否设置成功
+            // 异常时抛出TypeError，如果对象不是Object
+
+            return Reflect.set(target,key,value)  //等价于target[key] = value
+        }
+    });
+    console.log(`我叫${test2.name}, 我今年${test2.age}了`)
+    test2.school = 'SWUST'
+    console.log(test2)   //Proxy {name: 'SFONE', age: '24', school: 'SWUST'}
+
+</script>
+</html>

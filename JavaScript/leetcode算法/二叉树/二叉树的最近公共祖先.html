@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+
+    //方法一：分别记录根节点到两个目标节点的路径，比较两条路径中最后一次出现的公共节点
+    var lowestCommonAncestor = function(root, p, q) {  //p,q类型为node
+        let a=[]
+        let b=[]
+        let atemp =[]
+        let btemp =[]
+        function pathFound(root,target,path,temp) {
+            if(root === null) return path;
+            path.push(root.val)
+            if(root.val === target){
+                temp.push(...path)
+                return temp
+            }
+            pathFound(root.left,target,path,temp)
+            pathFound(root.right,target,path,temp)
+            path.pop()
+        }
+        pathFound(root,p.val,a,atemp)
+        pathFound(root,q.val,b,btemp)
+
+        console.log(atemp)
+        console.log(btemp)
+        let n =Math.min(atemp.length,btemp.length)
+        let res = atemp[n-1]
+        for(let i=0;i<n;i++){
+            if (atemp[i] - btemp[i] !== 0){
+                res = atemp[i-1]
+            }
+        }
+
+        console.log(res)
+        function findnode(root,target){
+            if(root.val === target) return root
+            findnode(root.left,target)
+            findnode(root.right,target)
+        }
+
+        findnode(root,res)
+
+    };
+
+    //方法二：递归
+    var lowestCommonAncestor1 = function(root, p, q) {
+        //如果root为空
+        if(!root || root ===p || root ===q) return root;
+        const left = lowestCommonAncestor(root.left,p,q)
+        const right = lowestCommonAncestor(root.right,p,q)
+        if(!left) return right  //如果left中没有找到节点，则在右树中寻找
+        if(!right) return left
+        return root
+    };
+
+
+
+
+</script>
+</html>

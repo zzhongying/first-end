@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="left">
+
+    </div>
+    <div id="right">
+
+    </div>
+</body>
+<style>
+
+    /*#left{*/
+    /*    width: 200px;*/
+    /*    background-color: darkseagreen;*/
+    /*    height: 100vh;*/
+    /*    float: left;*/
+    /*}*/
+    /*#right{*/
+    /*    display: flex筛子布局;*/
+    /*    background-color: antiquewhite;*/
+    /*    height: 100vh;*/
+    /*    !*margin-left: 200px;  !*方法一：使用浮动和margin*!*!*/
+    /*    !*overflow: hidden;   !*方法二：hidden:内容会被修剪，并且其余内容是不可见的。*!*/
+    /*    flex筛子布局: 1;   !*方法三：使用flex布局*!*/
+
+    /*   */
+    /*}*/
+
+    /*方法四：使用绝对定位*/
+    #left{
+        width: 200px;
+        background-color: darkseagreen;
+        height: 100vh;
+        float: left;
+        position: absolute;
+    }
+    #right{
+        background-color: antiquewhite;
+        height: 100vh;
+        position: relative;
+        margin-left: 200px;
+    }
+
+
+
+
+</style>
+</html>

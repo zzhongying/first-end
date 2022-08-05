@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var a = 1;
+    function printA(){
+        console.log(this.a);
+    }
+    var obj={
+        a:2,
+        foo:printA,   //
+        bar:function(){
+            console.log(this)   //this指向obj
+            printA();   //函数的上级作用域在哪里创建的，上级作用域就是谁，此时上级作用域是windows
+        }
+    }
+
+    obj.foo();     //
+    obj.bar();
+    var foo = obj.foo;
+    foo();
+
+
+
+
+</script>
+</html>

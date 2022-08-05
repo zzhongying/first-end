@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+// 二叉搜索树的定义为：对于树中的每个节点X，它的左子树的所有关键字值小于X的关键字值，
+// 而它的右子树中所有关键字值大于X的关键字值。这意味着二叉搜索树所有的元素可以用某种统一的方式排序。
+// 在这里只需要比较两个节点和根的值的大小，确定两个节点所在位置，如果两个节点分别在根的两边，那么可
+// 以肯定它们的最近公共祖先就是根节点，如果在同一侧就可以递归查找了。
+
+var lowestCommonAncestor = function(root, p, q) {
+    if(!root) return ;
+
+    var a = root.val
+    var b = p.val
+    var c = q.val
+
+    if(a<b && a<c){
+        return lowestCommonAncestor(root.right, p,q)  //同右侧
+    }
+
+    if(a>b && a>c ){
+        return lowestCommonAncestor(root.left, p,q)   //同左侧
+    }
+    return root
+
+};
+</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var data =[5,7,6,3,1,45,6,6,9,5,64]
+    //方法一：快速排序
+    function QuicSort(array) {
+        if(array.length == 1){
+            return array[0]
+        }
+
+        function Sort(left,right,arr) {
+            if(left>right) return
+            let L = left
+            let R = right
+            let pivot = arr[L]
+            while (L<R){
+                while ( L<R && pivot <= arr[R] ){
+                    R--
+                }
+                if( L<R ){
+                    arr[L] = arr[R]
+                }
+                while (L<R && pivot >= arr[L]){
+                    L++
+                }
+                if(L<R){
+                    arr[R] = arr[L]
+                }
+                if(L>=R){
+                    arr[L] = pivot
+                }
+            }
+
+            Sort(left,R-1,arr)
+            Sort(R+1,right,arr)
+
+        }
+
+        Sort(0,array.length-1, array)
+        console.log(array)
+
+    }
+
+    QuicSort(data)
+</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //关键知识点：js在遇到resolve或者return一个Promise对象时，会先求得这个Promise对象的值，
+    // 也就是这个Promise的状态为fulfilled或rejected的值(假如这个值是'a')，再用这个值作为
+    // 返回的新的Promised的值，这个新的Promsie(就是new Promise(resolve => resolve('a'))
+    // 作为下级链式调用的Promise。
+    Promise.resolve().then(() => {
+        console.log(0);
+// //return 本身会有一次 Promise 微任务，Promise.resolve 有是一次，刚好 2 次， 所以会在 2 ，3，
+// 后接着是 4， 完美！
+// resolve或者return遇到一个Promise对象时，得到这个Promise的值之后，会把这个值用微任务包装起来，
+// 在return向外传递(因为后边没有.then()了，所以是向父级的外层传递)值时，会产生第二个微任务。
+        return Promise.resolve(4);
+    }).then((res) => {
+        console.log(res)
+    })
+
+    //上段代码等同于：
+    Promise.resolve().then(() => {
+        console.log(0)
+        return 4
+    })
+        .then()
+        .then()
+        .then((res) => {
+        console.log(res)
+    })
+
+
+    Promise.resolve().then(() => {
+        console.log(1);
+    }).then(() => {
+        console.log(2);
+    }).then(() => {
+        console.log(3);
+    }).then(() => {
+        console.log(5);
+    }).then(() =>{
+        console.log(6);
+    })
+
+
+    //输出顺序： 0
+</script>
+</html>

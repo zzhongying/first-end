@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //非负整数的大数相加
+    //思路: 数组的每一位元素相加， 如果小于10，取个位，进位=0
+    //     数组的每一位元素相加， 如果大于10，取个位，进位1
+    //最后一位仍然有进位，将进位添加到结果里
+
+    function sumBigNumber(a,b) {  //a,b必须是字符串类型
+        let res ='';
+
+        let arr1 = a.split('').reverse()  //将长字符串切分为数组,reverse是为了方便for循环从0开始
+        let arr2 = b.split('').reverse()
+        console.log(a,b)
+
+        let length = Math.max(a.length,b.length)
+        let result = []   //存储结果
+        let flag =0 //进位
+        for(let i=0;i<length;i++){
+            let num1 = Number(arr1[i]) || 0;  //如果短数组某一位为空无法转换，则将其设置为0
+            let num2 = Number(arr2[i]) || 0;
+            let sum = num1 + num2 + flag
+            if(sum>=10){
+                //大于10，取个位数 sum%10
+                sum = sum %10;
+                flag =1
+            }else {
+                flag =0;
+            }
+            result.push(sum);
+            if( i === length-1 && flag ===1){
+                result.push(flag)   //如果整体第一位发生了进位，则多添加一位
+            }
+        }
+        return result.reverse().join('') //恢复顺序并重新转化为字符串
+    }
+    sumBigNumber("9007199254740990","9007199254740989")
+</script>
+</html>

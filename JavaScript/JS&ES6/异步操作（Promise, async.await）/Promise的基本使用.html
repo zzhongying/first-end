@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise</title>
+</head>
+<body>
+</body>
+
+<script>
+    //1. 创建一个新的Promise对象 Promise(excutoe)=> excutor函数：同步执行(resolve,reject)=》{}
+    //即：excuor会在Promise内部立即同步回调，异步操作在执行器中执行
+    const p = new Promise((resolve,reject)=>{     // 执行器函数
+
+        //2. 执行异步操作任务
+        setTimeout(()=>{
+            const time = Data.now()
+                //3.1 如果成功了，调用resolve(value)
+            if(time%2 === 0){
+                resolve('成功的数据，time=' + time)
+            }else {
+                //3.2 如果失败了，调用reject（reason）
+                reject('失败的数据，time=' + time)
+            }
+        },1000)
+    })
+
+    p.then(
+        value => {   //接收得到成功的数据  onResolved
+            console.log('成功的回调',value)
+        },
+        reason =>{   //接收得到失败的数据  onRejected
+            console.log('失败的回调',reason)
+        }
+    )
+</script>
+</html>

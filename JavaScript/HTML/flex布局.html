@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flex布局的使用</title>
+</head>
+<body>
+<div class="flex">
+    <div class="flex1">Flex 1</div>
+    <div class="flex2">Flex 2</div>
+    <div class="flex3">Flex 3</div>
+</div>
+</body>
+<style>
+    .flex{
+        display: flex;
+        height: 100px;
+        background-color: darkseagreen;
+        width:200px ;
+    }
+    .flex1{
+        background-color: antiquewhite;
+        flex: 1;
+    }
+    .flex2{
+        background-color: cornflowerblue;
+
+    }
+    .flex3{
+        background-color: brown;
+        flex: 2;    /*是其他子元素的两倍*/
+    }
+
+</style>
+</html>

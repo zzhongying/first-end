@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    window.number = 2;
+    var obj = {
+        number: 3,
+        db1: (function(){  //立即执行函数,无论何时，因为其单独的作用域，this永远指向window
+            console.log(this);
+            this.number *= 4;
+            return function(){      //闭包，this指向windows
+                console.log(this);   //obj？？？
+                this.number *= 5;
+            }
+        })()
+    }
+    var db1 = obj.db1;
+    db1();         //window调用  window，window， window.number =40
+    console.log(this.name)  //为空？？？
+    obj.db1();      //obj调用 window,
+    console.log(obj.number);        //  15？？
+    console.log(window.number);    //    40
+</script>
+</html>

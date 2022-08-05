@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function foo() {
+        console.log(this)
+        console.log( this.a );
+    }
+
+    function doFoo() {
+        console.log(this) //obj
+        foo();    //闭包函数
+    }
+
+    var obj = {
+        a: 1,
+        doFoo: doFoo
+    };
+
+    var a = 2;
+    obj.doFoo()
+
+    //
+    function createCounter() {
+           let counter = 0
+           const myFunction = function() {
+                 counter = counter + 1
+                 console.log(this)
+                 return counter
+               }
+
+           return myFunction   //this指向window，myfunction返回了counter，相当于设置
+    }
+
+     const increment = createCounter()
+     const c1 = increment()  //counter的值被修改后存储在闭包中
+     const c2 = increment()
+     const c3 = increment()
+     console.log('example increment', c1, c2, c3)
+
+    //
+
+</script>
+</html>

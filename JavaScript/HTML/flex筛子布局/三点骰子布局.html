@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="box">
+    <span class="item"></span>
+    <span class="item"></span>
+    <span class="item"></span>
+</div>
+</body>
+<style>
+    .box{
+        width: 200px;
+        height: 200px;
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .item{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #666666;
+    }
+
+
+    .item:nth-child(2){
+        align-self: center;
+    }
+
+    .item:nth-child(3){
+        align-self: flex-end;
+    }
+</style>
+</html>

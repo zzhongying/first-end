@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var length = 10; //r如果是let length，则后续输出0，因为let不存在变量提升
+    function fn() {
+        console.log(this);
+        console.log(this.length);
+    }
+
+    var obj = {
+        length: 5,
+        method: function(fn) {
+            fn();
+            arguments[0]();  // arguments[0]() ，arguments是fn与1，【0】()代表fn()，所以实际是arguments.length
+            // 是作为 arguments 对象的属性 [0] 来调用 fn 的，所以 fn 中的 this 指向属性访问主体的对象 arguments
+            console.log(this.length)
+        }
+    };
+
+    obj.method(fn, 1);  //10
+</script>
+</html>

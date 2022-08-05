@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    //原生js请求
+    function origin_ajax(url) {
+        let xhr = XMLHttpRequest()
+        //创建一个新的http请求
+        xhr.open('GET',url,true)
+        //监听状态变化
+        xhr.onreadystatechange = function () {
+            if (this.readyState !== 4) return;
+            if(this.status === 200){   //此时监听的是服务器数据的返回状态
+                handle(this.response)
+            }else {
+                throw new Error(this.statusText)
+            }
+        }
+
+        //设置请求失败的回调函数，此时监听的是ajax请求发送的状态
+        xhr.onerror = function () {
+            throw new Error(this.statusText)
+        }
+
+        //在发送请求之间，可以设置相关请求头
+        xhr.responseType = 'json'
+        xhr.setRequestHeader("Accept","application/json");
+        //发送http请求
+        xhr.send(null)
+    }
+
+
+
+    //使用promise封装ajax请求
+    function getJSON(url) {
+        //1.创建一个promise对象
+        let promise = new Promise( function (resolve,reject) {
+            let xhr = new XMLHttpRequest()
+            //新建一个http请求
+            xhr.open("GET",url,true) //第三个请求表示请求是异步的
+            //设置状态的监听函数
+            xhr.onreadystatechange = function () {
+                //当对象的 readyState 变为 4 的时候，代表服务器返回的数据接收完成，这个时候可以通过判断服务器返回的状态，
+                if(this.readyState !== 4 ) return;
+                //当请求成功或失败时，改变promise状态
+                if(this.status === 200){
+                    resolve(this.response)   //传递当前的响应值
+                }else {
+                    reject( new Error(this.statusText))
+                }
+            }
+
+            //设置错误监听函数
+            xhr.onerror = function () {
+                reject(new Error(this.statusText));
+            }
+            //设置响应的数据类型
+            xhr.responseType ='json';
+            //设置请求头信息
+            xhr.setRequestHeader("Accept","application/json");
+            // 发送 http 请求
+            xhr.send(null)
+
+        });
+        return promise
+    }
+
+
+
+</script>
+</html>

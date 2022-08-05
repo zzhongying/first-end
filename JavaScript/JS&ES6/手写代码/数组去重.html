@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //实现数组去重
+    //方法1：es6的set
+    const array = [1, 2, 3, 5, 1, 5, 9, 1, 2, 8];
+    arr = Array.from(new Set(array))
+    console.log(arr)
+
+    //方法2：使用hasOwnProperty
+    function unique(array) {
+        let map ={}
+        let res =[]
+        for(var i=0;i<array.length;i++){
+            if( !map.hasOwnProperty(array[i])){  //如果想用数组的hasOwnProperty，则必须传入的索引，而不是缩影对应的值
+                map[array[i]] = 1
+                res.push(array[i])
+            }
+        }
+        return res
+    }
+    console.log(unique(array))
+
+</script>
+</html>

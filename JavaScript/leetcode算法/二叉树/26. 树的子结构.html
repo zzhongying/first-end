@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>26.树的子结构</title>
+</head>
+<body>
+
+</body>
+<script>
+    /**
+     * Definition for a binary tree node.
+     * function TreeNode(val) {
+     *     this.val = val;
+     *     this.left = this.right = null;
+     * }
+     */
+    /**
+     * @param {TreeNode} A
+     * @param {TreeNode} B
+     * @return {boolean}
+     */
+    var isSubStructure = function(A, B) {
+
+        if( !A || !B) return false //规定空树不是任何树的子结构
+        //判断
+        return Search(A,B) || isSubStructure(A.left,B) || isSubStructure(A.right,B)
+
+    };
+
+    function Search(A,B) {
+        if( B === null ){    //若B为空，则表示A中存在B的子节点
+            return true
+        }
+        if( A ===null && B !== null ){   //A已经遍历完，B确没遍历完，则B不是A的子结构
+            return false
+        }
+        if(A.val !== B.val){
+            return false
+        }
+        return   Search(A.left,B.left) && Search(A.right,B.right) //若当前节点值相等，则继续判断
+    }
+
+    isSubStructure([3,4,5,1,2],[4,1])
+
+</script>
+</html>

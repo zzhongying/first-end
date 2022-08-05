@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax_axios_fetch</title>
+</head>
+<body>
+
+</body>
+<script>
+    //ajax的使用，提交类型为XHR
+    $.ajax({
+        method:'POST',
+        data:{a:10},  //post默认填充
+        headers:{'Content-Type':'application/json'}, //提交数据的格式
+        url:'http://XXX' , //数据接口
+        success:function (data) {
+            console.log(data)
+        }
+    })
+
+    //fetch的使用，现代浏览器自带
+    fetch("http://XXX:8080",{
+        method:"POST",
+        headers:{"content-type":"application/x-www-form-urlencoded"},
+        body:"this is test",  //不能用data对象
+    })   //返回一个Promise对象
+    .then(res=>res.json())
+    .then(d=>console.log(d))
+
+    //fetch提交参数的几种方式,URL后添加表达式
+    fetch("http://XXX:8080?a=12",{
+        method:"POST",
+        headers:{"content-type":"application/json"},
+        body:JSON.stringify({a:12}),  //不能用data对象
+    })   //返回一个Promise对象
+        .then(res=>res.json())
+        .then(d=>console.log(d))
+
+    //axios的使用,也返回一个Promise对象
+    // axios默认是json类型的提交
+    axios({
+        url:"http://localhost:99?x=1",
+        method:"POST",
+        data:{a:12}
+    })   //返回的是一个promise对象，里面包含了很多请求相关的信息，核心数据在data中
+        .then(res=>console.log(res.data))
+
+    // 如果想改成form则需要修改headers和data格式
+    axios({
+        url:"http://localhost:99?x=1",
+        method:"POST",
+        headers:{"Content-Type":"application/x-www-form-urlencoded"},
+        data:"a=12&b=23"
+    })
+        .then(res=>console.log(res.data))
+
+    //await写法
+    let result=await axios({
+        url:"http://localhost:99?x=1",
+        method:"POST",
+    })
+    console.log(result.data)
+
+</script>
+</html>

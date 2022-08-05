@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>async与await</title>
+</head>
+<body>
+
+</body>
+<script>
+    //1： async
+    //返回的是一个Promise对象
+    async function fn1() {
+        //return 1
+        //throw 2  //抛出错误，返回OnRejected 2
+        //return Promise.reject(3)  //返回OnRejected 3
+        return new  Promise((resolve ,reject)=>{
+            setTimeout(()=>{
+                resolve(4)
+            },1000)
+        })
+    }
+
+    const result = fn1()
+    // console.log(result)
+    result.then(
+        value => {
+            console.log('OnResolved()',value)
+        },
+        reason => {
+            console.log('OnRejected()',reason)
+        }
+    )
+
+    //2. await表达式
+    function fn2() {
+        return new  Promise((resolve ,reject)=>{
+            setTimeout(()=>{
+                resolve(5)
+            },1000)
+        })
+    }
+
+    function fn22(){
+        return 6
+    }
+
+    async function fn3() {
+        // 情况1：await右侧结果是promise对象，则返回promise成功的value
+        const value = await fn2()
+        console.log('value',value)
+        // 情况2： await右侧结果为非promise对象，则返回
+        const value2 = await  fn22()
+        console.log('value2',value2)
+    }
+    fn3()
+
+
+    //2. await表达式-失败
+    function fn23() {
+        return new  Promise((resolve ,reject)=>{
+            setTimeout(()=>{
+                reject(6)
+            },1000)
+        })
+    }
+
+    async function fn4() {
+        try{
+            const value = await fn23()
+            console.log('value',value)
+        } catch (error) {
+            console.log('得到失败的结果', error)
+        }
+    }
+    fn4()
+</script>
+</html>

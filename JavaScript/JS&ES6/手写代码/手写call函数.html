@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>call函数</title>
+</head>
+<body>
+
+</body>
+<script>
+    Function.prototype.myCall = function (context) {
+        if(typeof this !='function'){
+            console.log("type error")
+        }
+
+        let result = null
+            args = [...arguments].slice(1)  //返回出第一个参数外的其他参数
+        context.fn = this
+        result = context.fn(...args)
+        delete context.fn
+
+        return result
+
+    }
+
+</script>
+</html>

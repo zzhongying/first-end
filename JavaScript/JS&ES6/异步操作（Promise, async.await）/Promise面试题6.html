@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise面试题6</title>
+</head>
+<body>
+
+</body>
+<script>
+    new Promise((resolve, reject) => {
+        console.log("A");
+        resolve();
+    }).then(() => {
+        console.log("B");
+        new Promise((resolve, reject) => {
+            console.log("C");
+            resolve();
+        }).then(() => {
+            console.log("D");
+        }).then(() => {
+            console.log("E");
+        });
+
+        return new Promise((resolve, reject) => {
+            console.log("F");
+            resolve();
+        }).then(() => {
+                console.log("G");
+        }).then(() => {
+            console.log("H");
+        });
+    }).then(() => {
+            console.log("I");    //上一个then中有return关键字，所以必须等上一个then全部执行完再执行当前then
+        });
+
+
+</script>
+</html>

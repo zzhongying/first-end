@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //我们希望这个能暂停一段时间并做一些相关的操作，但是又不想写太过嵌套的回调函数,就可以使用sleep函数
+    sleep(5).then(() => console.log('sleep,5s'))
+    //使用promise函数封装settimeout，实现sleep的功能
+    function timeout(delay) {
+        return new Promise(resolve => {
+            setTimeout(resolve,delay)
+        })
+    }
+</script>
+</html>
+
+
+

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function Node(data,left,right){
+        this.data = data;
+        this.left = left;
+        this.right = right;
+    }
+    function BST(){
+        this.root = null;
+        this.insert = insert;
+    }
+    /*
+    * parameter: data:本节点的数据；
+    * 创建节点示例并插入到二叉树的正确位置
+    */
+    function Node(data,left,right){
+        this.data = data;
+        this.left = left;
+        this.right = right;
+    }
+    function BST(){
+        this.root = null;
+        this.insert = insert;
+    }
+    function insert(data){
+        var node = new Node(data,null,null);
+        if(this.root == null){
+            this.root = node;
+        }else{
+            var current = this.root;
+            while(true){
+                if(current.data > data){
+                    if(current.left === null){
+                        current.left = node;
+                        break;
+                    }
+                    current = current.left;
+                }else{
+                    if(current.right === null){
+                        current.right = node;
+                        break;
+                    }
+                    current = current.right;
+                }
+            }
+        }
+    }
+    var bst = new BST();
+    bst.insert(5);
+    bst.insert(3);
+    bst.insert(7);
+    bst.insert(2);
+    bst.insert(6);
+    bst.insert(8);
+
+    //dfs，输出根节点到叶子节点的所有路径
+    var treePath = function (root) {
+        let res =[]
+        let path =[]
+        function printpath(root) {
+            if(!root) return [];
+            path.push(root.val)
+            if(!root.left && !root.right){
+                res.push([...path])
+            }
+            printpath(root.left)
+            printpath(root.right)
+            path.pop()
+        }
+        printpath(root)
+        console.log(res)
+        return res
+    }
+
+    treePath(bst)
+
+</script>
+</html>

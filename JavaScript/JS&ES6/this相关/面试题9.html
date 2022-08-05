@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var obj = {
+        say: function() {  //this指向调用者
+            var f1 = () =>  {
+                console.log("1111", this);   //this继承say:function
+            }
+            f1();
+        },
+        pro: {
+            getPro:() =>  {         //this继承obj,因为pro不够成单独的作用域
+                console.log(this);
+            }
+        }
+    }
+
+    var o = obj.say;
+    o();         // 1111,window
+    obj.say();    //1111,obj
+    obj.pro.getPro();   //
+
+
+
+</script>
+</html>

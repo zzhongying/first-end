@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var myObject = {
+        foo: "bar",
+        func: function() {      //this指向myObject
+            var self = this;    //self是var
+            console.log(this.foo);   // bar
+            console.log(self.foo);    //  bar
+            (function() {       //立即执行函数的作用：立即执行函数会形成一个单独的作用域，可以封装一些外部无法读取的私有变量，这个作用域里面的变量，外面访问不到
+                console.log('111',this)   //this指向window，因为立即执行函数是由window调用的
+                console.log(this.foo);   // undefined·
+                console.log(self.foo);  // bar
+            }());
+        }
+    };
+    myObject.func();
+
+</script>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三栏布局</title>
+</head>
+<body>
+
+</body>
+
+<style>
+    /*方法一：使用绝对定位 */
+    /*    .left, .right{*/
+    /*        position: absolute;*/
+    /*        width: 200px;*/
+    /*        height: 100vh;*/
+    /*        background-color: darkseagreen;*/
+    /*    }*/
+    /*    .right{*/
+    /*        right: 0;*/
+    /*        top:0*/
+    /*    }*/
+    /*    .center{*/
+    /*        position: relative;*/
+    /*        margin-left: 200px;*/
+    /*        margin-right: 200px;*/
+    /*        height: 100vh;*/
+    /*        background-color: antiquewhite;*/
+    /*    }*/
+
+    /*方法二：使用flex    */
+    /*    .outer{*/
+    /*        display: flex筛子布局;*/
+    /*    }*/
+
+    /*    .left,.right {*/
+    /*        width: 200px;*/
+    /*        height: 100vh;*/
+    /*        background-color: darkseagreen;*/
+    /*    }*/
+
+
+    /*    .center{*/
+    /*        flex筛子布局: 1;*/
+    /*        background-color: antiquewhite;*/
+    /*    }*/
+
+    /*方法三：利用浮动   */
+    /*.left {*/
+    /*    width: 200px;*/
+    /*    height: 100vh;*/
+    /*    float: left;*/
+    /*    background-color: darkseagreen;*/
+
+    /*}*/
+
+    /*.right {*/
+    /*    width: 200px;*/
+    /*    height: 100vh;*/
+    /*    float: right;*/
+    /*    background-color: darkseagreen;*/
+
+    /*}*/
+
+    /*.center {*/
+    /*    background-color: antiquewhite;*/
+    /*    height: 100vh;*/
+    /*}*/
+
+
+
+/*    方法四:Grid布局*/
+/*    .outer{*/
+/*        display: grid;*/
+/*        grid-template-columns: 200px auto 200px;*/
+/*        grid-template-rows: 100vh;*/
+/*        width: 100vw;*/
+/*    }*/
+
+/*    .left, .right{*/
+/*        background-color: darkseagreen;*/
+/*    }*/
+
+/*    .center{*/
+/*        background-color:antiquewhite ;*/
+/*    }*/
+
+
+</style>
+
+<div class="outer">
+    <div class="center"></div>
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+</html>

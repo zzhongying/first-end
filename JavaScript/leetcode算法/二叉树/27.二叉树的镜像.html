@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var mirrorTree = function(root) {
+        if(!root) return null
+        const copyNode = new TreeNode(root.val)
+        copyNode.left = mirrorTree(root.right)
+        copyNode.right = mirrorTree(root.left)
+        return copyNode
+    };
+
+    mirrorTree()
+
+</script>
+</html>

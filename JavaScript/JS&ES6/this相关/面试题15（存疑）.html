@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var a = 10;
+    var obt = {
+        a: 20,
+        fn: function(){
+            var a = 30;
+            console.log(this.a)
+        }
+    }
+    obt.fn();  //20
+    obt.fn.call(); // 10
+    (obt.fn)(); // 20？？    这里给表达式加了括号，而括号的作用是改变表达式的运算顺序，而在这里加与不加括号并无影响；相当于  obt.fn()，所以会打印出 20；
+    new obt.fn(); // undefined
+</script>
+</html>

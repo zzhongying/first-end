@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    function getType(value) {
+        if(value == null){
+            console.log("null")
+            return "null";
+        }
+        //如果value是引用数据类型
+        if( typeof value == "object"){   //如果我们想获得一个变量的正确类型，可以通过 Object.prototype.toString.call(xx)。
+            //返回的是代表该对象的字符串。 这样我们就可以获得类似 [object Array]或者[Object Object]的字符串
+            let arr = Object.prototype.toString.call(value)
+                type = arr.split(" ")[1]  //拆分空格，并取第二个数据,得到Array]
+            console.log(type.slice(0,type.length-1))
+            return type.slice(0,type.length-1)
+        }
+        else {   //基本数据类型直接返回
+            console.log(typeof value)
+            return typeof value
+         }
+    }
+
+    var Array=[1,2,3,4,5,6]
+    var Obj ={
+        a:1,
+        c:3
+    }
+    var test = null
+    var a =0
+    getType(Array)
+
+</script>
+</html>

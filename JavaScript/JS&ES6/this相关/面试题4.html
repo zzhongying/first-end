@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var myObject = {
+        foo: "bar",
+        func: function() {
+            var self = this;
+            console.log(this.foo);
+            console.log(self.foo);
+            (function() {      // 立即执行匿名函数是由windows调用的？？ this指向windows
+                console.log(this.foo);
+                console.log(self.foo);
+            }());
+        }
+    };
+    myObject.func();
+
+    // bar bar  undefined  bar
+</script>
+</html>

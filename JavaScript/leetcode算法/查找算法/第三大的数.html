@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>414</title>
+</head>
+<body>
+
+</body>
+<script>
+    var thirdMax = function(nums) {
+        let temp = Array.from(new Set(nums))  //去重
+
+        if( temp.length < 3) return Math.max(...nums)
+        temp = temp.reverse()
+        console.log(temp)
+        return temp[temp.length-3]
+    };
+
+    thirdMax([3,2,1])
+
+
+    var test =[1,2,9,3,5,6]
+
+</script>
+</html>
